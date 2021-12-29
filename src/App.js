@@ -1,10 +1,10 @@
 import React from 'react'
 
-import Test from './sketches/test/Test'
+import Sketch from './sketches/Sketch'
 
 function App() {
   return (
-    <Test />
+    <Sketch />
   )
 }
 
