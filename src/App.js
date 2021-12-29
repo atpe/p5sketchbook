@@ -1,58 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
-import './App.css';
+import React, { createRef, useEffect } from 'react'
+
+import p5 from 'p5'
 
 function App() {
+  function sketch(sketch) {
+    sketch.setup = () => {
+      sketch.createCanvas(100, 100)
+      sketch.background(120)
+    }
+
+    sketch.draw = () => {
+      const i = sketch.random(0, 100)
+      sketch.ellipse(50, i, 10)
+    }
+  }
+
+  let _p5
+  const sketchRef = createRef()
+  useEffect(() => _p5 = new p5(sketch, sketchRef.current), [_p5])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
-    </div>
-  );
+    <div ref={sketchRef} />
+  )
 }
 
-export default App;
+export default App
