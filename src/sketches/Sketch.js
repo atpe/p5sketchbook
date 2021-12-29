@@ -2,7 +2,10 @@ import React, { createRef, useEffect } from 'react'
 
 import p5 from 'p5'
 
-import Box from '@mui/material/Box'
+import Card from '@mui/material/Card'
+import CardHeader from '@mui/material/CardHeader'
+import CardMedia from '@mui/material/CardMedia'
+import CardContent from '@mui/material/CardContent'
 
 /** Sketch component
  * @returns A p5.js instance within a component
@@ -17,6 +20,9 @@ export default function Sketch(props) {
 
   /** Return sketch */
   return (
-    <Box sx={{ height: '100%' }} ref={sketchRef} />
+    <Card sx={{ height: '100%' }} >
+      <CardHeader title="Sketch" />
+      <CardMedia sx={{ height: '100%' }} raised={true} ref={sketchRef} />
+    </Card>
   )
 }

@@ -1,5 +1,7 @@
 html, body {
   height: 99%;
+  background-color: #606060;
+  margin: 0px;
 }
 
 #root, .App {
