@@ -4,7 +4,7 @@ import p5 from 'p5'
 
 import Test from './test/Test'
 
-/** Sketch Component
+/** Sketch component
  * @returns A p5.js instance within a component
  */
 export default function Sketch() {
@@ -15,5 +15,6 @@ export default function Sketch() {
   let instance
   useEffect(() => instance = new p5(Test, ref.current), [instance])
 
+  /** Return sketch */
   return <div ref={ref} />
 }

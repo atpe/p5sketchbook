@@ -2,10 +2,9 @@ import React from 'react'
 
 import Sketch from './sketches/Sketch'
 
-function App() {
+/** Main app component */
+export default function App() {
   return (
     <Sketch />
   )
 }
-
-export default App
