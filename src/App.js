@@ -8,8 +8,11 @@ import Test from './sketches/test/Test'
 /** Main app component */
 export default function App() {
   return (
-    <Routes>
-      <Route path='/' element={<Sketch sketch={Test} />} />
-    </Routes>
+    <>
+
+      <Routes>
+        <Route path='/' element={<Sketch sketch={Test} />} />
+      </Routes>
+    </>
   )
 }
