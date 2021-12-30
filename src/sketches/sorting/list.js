@@ -5,20 +5,34 @@ export default class List {
     this.items = []
   }
 
-  init() {
-    for (let x = 0; x < this.width; x++) {
-      const y = x / this.width * this.height
-      this.items[x] = y
-    }
+  iterate(callback) {
+    for (let x = 0; x < this.width; x++) callback(x)
   }
 
-  drawTo(sketch) {
+  init() {
+    this.iterate(x => {
+      const y = x / this.width * this.height
+      this.items[x] = y
+    })
+  }
+
+  shuffle() {
+    const items = []
+    this.iterate(x => {
+      const i = Math.floor(Math.random() * this.items.length)
+      items.push(this.items[i])
+      this.items.splice(i, 1)
+    })
+    this.items = items
+  }
+
+  draw(sketch) {
     sketch.push()
-    for (let x = 0; x < this.width; x++) {
+    this.iterate(x => {
       const y = this.items[x]
-      sketch.stroke([255, (1 - y / this.height) * 255, 255])
+      sketch.stroke([200, 200 - (y / this.height) * 200, 200])
       sketch.line(x, this.height, x, this.height - y)
-    }
+    })
     sketch.pop()
   }
 }
