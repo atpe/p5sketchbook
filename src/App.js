@@ -1,3 +1,4 @@
+import { createTheme } from '@mui/material/styles';
 // React imports
 import React from 'react'
 // React-Router-Dom imports
@@ -9,7 +10,8 @@ import AppBar from './navBar/NavBar'
 import Home from './home/Home'
 import Sketch from './sketches/Sketch'
 // Local sketch imports
-import Test from './sketches/test/Test'
+import test from './sketches/test/test'
+import sorting from './sketches/sorting/main'
 
 /** Main app component */
 export default function App() {
@@ -21,7 +23,8 @@ export default function App() {
         <Routes>
           <Route exact path='/' element={<Home />} />
           <Route path='/'>
-            <Route path='test' element={<Sketch sketch={Test} />} />
+            <Route path='sorting' element={<Sketch sketch={sorting} />} />
+            <Route path='test' element={<Sketch sketch={test} />} />
           </Route>
         </Routes>
       </Container>

@@ -1,7 +1,7 @@
 /** Main test sketch function
  *  @param {Object} s The p5.js sketch function
  */
-export default function Test(s, ref) {
+export default function test(s, ref) {
   /** Setup function invoked by p5 */
   s.setup = () => {
     s.createCanvas(ref.current.clientWidth, ref.current.clientHeight)

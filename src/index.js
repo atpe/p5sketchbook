@@ -1,17 +1,37 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { BrowserRouter } from 'react-router-dom'
-import App from './App'
 import { store } from './app/store'
+import { BrowserRouter } from 'react-router-dom'
+import { createTheme, ThemeProvider } from '@mui/material/styles'
+import App from './App'
 import { Provider } from 'react-redux'
 import * as serviceWorker from './serviceWorker'
 import './index.css'
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      light: '#819ca9',
+      main: '#546e7a',
+      dark: '#29434e',
+      contrastText: '#fff',
+    },
+    secondary: {
+      light: '#ff96ba',
+      main: '#ff638a',
+      dark: '#c72c5d',
+      contrastText: '#000',
+    },
+  },
+});
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
-        <App />
+        <ThemeProvider theme={theme}>
+          <App />
+        </ThemeProvider>
       </BrowserRouter>
     </Provider>
   </React.StrictMode>,
