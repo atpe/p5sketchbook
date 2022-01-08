@@ -19,11 +19,12 @@ export default function App() {
   let navBarHeight = toolbar.minHeight
   if (innerWidth > theme.breakpoints.up('sm')) navBarHeight = toolbar[theme.breakpoints.up('sm')].minHeight
   else if (innerWidth < innerHeight) navBarHeight = toolbar[`${theme.breakpoints.up('xs')} and (orientation: landscape)`].minHeight
-  const height = innerHeight - navBarHeight - 32
+  const height = innerHeight - navBarHeight - 48 // 48 to accomodate padding and <br />
+  console.log(innerHeight, navBarHeight, height);
   return (
     <>
       <NavBar />
-      <Box sx={{ p: '16px', height }} >
+      <Box sx={{ display: 'flex', flexDirection: 'column', p: '16px', height }} >
         <Routes>
           <Route exact path='/' element={<Home />} />
           <Route path='/'>

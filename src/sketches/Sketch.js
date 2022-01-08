@@ -35,12 +35,12 @@ export default function Sketch(props) {
   /** Return sketch */
   return (
     <>
-      <Card sx={{ maxHeight: '20%' }}>
+      <Card>
         <CardHeader title={sketches[props.sketch].title} />
         {sketches[props.sketch].actions(handleClick)}
       </Card>
       <br />
-      <Card sx={{ padding: '0px', height: '80%' }} ref={sketchRef} />
+      <Card sx={{ padding: '0px', flex: 1 }} ref={sketchRef} />
     </>
   )
 }
