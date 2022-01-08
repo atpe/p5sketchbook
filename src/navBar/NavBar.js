@@ -9,7 +9,7 @@ import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
 import Avatar from '@mui/material/Avatar'
 // Mui icon imports
-import HomeIcon from '@mui/icons-material/Home';
+
 
 export default function NavBar() {
   return (

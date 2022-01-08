@@ -1,21 +1,10 @@
 import List from '../list'
 
+// Does not assume unique and/or linear array
 export default class SelectionSort extends List {
   constructor(width, height) {
     super(width, height)
     this.i = 0
-  }
-
-  highlight(sketch) {
-    sketch.push()
-    sketch.strokeWeight(2)
-    sketch.stroke([100, 255, 100, 100])
-    sketch.line(this.i, 0, this.i, this.height)
-    sketch.stroke([255, 100, 100, 100])
-    sketch.line(this.j, 0, this.j, this.height)
-    sketch.stroke([100, 100, 255, 100])
-    sketch.line(this.iMin, 0, this.iMin, this.height)
-    sketch.pop()
   }
 
   sort() {
@@ -45,5 +34,17 @@ export default class SelectionSort extends List {
         this.iMin = undefined
       }
     }
+  }
+
+  highlight(sketch) {
+    sketch.push()
+    sketch.strokeWeight(2)
+    sketch.stroke([100, 255, 100, 100])
+    sketch.line(this.i, 0, this.i, this.height)
+    sketch.stroke([255, 100, 100, 100])
+    sketch.line(this.j, 0, this.j, this.height)
+    sketch.stroke([100, 100, 255, 100])
+    sketch.line(this.iMin, 0, this.iMin, this.height)
+    sketch.pop()
   }
 }
