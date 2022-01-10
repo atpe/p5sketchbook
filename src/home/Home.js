@@ -10,9 +10,6 @@ import List from '@mui/material/List'
 import ListSubheader from '@mui/material/ListSubheader'
 import ListItemButton from '@mui/material/ListItemButton'
 import ListItemText from '@mui/material/ListItemText'
-import ListItemIcon from '@mui/material/ListItemIcon'
-// Mui icon imports
-import SortIcon from '@mui/icons-material/Sort'
 
 export default function Home() {
 
@@ -28,7 +25,7 @@ export default function Home() {
           <ListItemText primary='Insertion Sort' />
         </ListItemButton>
         <ListItemButton component={Link} to='/sorting-algorithms/bubble-sort'>
-          <ListItemText primary='Bubble Sort' secondary='beta' />
+          <ListItemText primary='Bubble Sort' />
         </ListItemButton>
       </CardContent >
     </Card>

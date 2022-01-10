@@ -1,5 +1,5 @@
 export default class List {
-  static maxLines = 50
+  static maxLines = 10
 
   constructor(width, height) {
     this.width = width

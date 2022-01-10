@@ -6,6 +6,7 @@ export function sortingActions(actions) {
     <CardActions>
       <Button onClick={actions.start}>Start</Button>
       <Button onClick={actions.pause}>Pause</Button>
+      <Button onClick={actions.reset}>Reset</Button>
     </CardActions >
   )
 }
@@ -14,6 +15,11 @@ export function sortingActions(actions) {
  *  @param {Object} sketch The p5.js sketch function
  */
 export function sortingSketch(sketch, list) {
+  sketch.reset = () => {
+    list.reset()
+    sketch.redraw()
+  }
+
   /** Setup function invoked by p5 */
   sketch.setup = () => {
     sketch.createCanvas(list.width, list.height)

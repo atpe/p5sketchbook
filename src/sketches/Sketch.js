@@ -5,9 +5,10 @@ import p5 from 'p5'
 import Card from '@mui/material/Card'
 import CardHeader from '@mui/material/CardHeader'
 
-import { sortingSketch, sortingActions } from './sorting/main'
-import SelectionSort from './sorting/algorithms/selectionSort'
-import InsertionSort from './sorting/algorithms/insertionSort'
+import { sortingSketch, sortingActions } from './sortingAlgorithms/main'
+import SelectionSort from './sortingAlgorithms/algorithms/selectionSort'
+import InsertionSort from './sortingAlgorithms/algorithms/insertionSort'
+import BubbleSort from './sortingAlgorithms/algorithms/bubbleSort'
 
 
 /** Sketch component
@@ -28,6 +29,11 @@ export default function Sketch(props) {
       sketch: sketch => sortingSketch(sketch, new InsertionSort(sketchRef)),
       actions: sortingActions,
     },
+    bubbleSort: {
+      title: 'Bubble Sort',
+      sketch: sketch => sortingSketch(sketch, new BubbleSort(sketchRef)),
+      actions: sortingActions,
+    },
   }
 
   /** Instance of p5.js */
@@ -37,6 +43,7 @@ export default function Sketch(props) {
   const actions = {
     start: () => instance.loop(),
     pause: () => instance.noLoop(),
+    reset: () => instance.reset(),
   }
 
   /** Return sketch */

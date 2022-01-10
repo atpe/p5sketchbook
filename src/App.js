@@ -1,9 +1,8 @@
-import { createTheme } from '@mui/material/styles';
 // React imports
 import React, { useRef } from 'react'
 // React-Router-Dom imports
 import { Routes, Route } from 'react-router-dom'
-import { useTheme } from '@emotion/react';
+import { useTheme } from '@emotion/react'
 // Mui component imports
 import Box from '@mui/material/Box'
 // Local component imports
@@ -34,6 +33,7 @@ export default function App() {
             <Route path='sorting-algorithms'>
               <Route path='selection-sort' element={<Sketch sketch='selectionSort' />} />
               <Route path='insertion-sort' element={<Sketch sketch='insertionSort' />} />
+              <Route path='bubble-sort' element={<Sketch sketch='bubbleSort' />} />
             </Route>
           </Route>
         </Routes>
