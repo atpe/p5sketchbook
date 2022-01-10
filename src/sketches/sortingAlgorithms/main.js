@@ -25,8 +25,6 @@ export function sortingSketch(sketch, list) {
     sketch.createCanvas(list.width, list.height)
     sketch.noLoop()
     sketch.frameRate(10)
-    list.init()
-    list.shuffle()
   }
 
   /** Draw function invoked by p5 */

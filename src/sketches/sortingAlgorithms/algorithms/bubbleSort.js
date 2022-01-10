@@ -32,9 +32,11 @@ export default class BubbleSort extends List {
         // Swap previous index with current index
         [this.items[this.i], this.items[this.j]] = [this.items[this.j], this.items[this.i]]
       }
+      // Move to next pair
       this.i++
       this.j++
     } else {
+      // Return to start if not sorted
       this.isSorted = this.check()
       this.i = 1
       this.j = 0

@@ -1,11 +1,14 @@
 export default class List {
-  static maxLines = 10
+  static maxLines = 100
 
   constructor(width, height) {
     this.width = width
     this.height = height
     this.spacing = this.width / List.maxLines
     this.items = []
+
+    this.init()
+    this.shuffle()
   }
 
   iterate(callback) {

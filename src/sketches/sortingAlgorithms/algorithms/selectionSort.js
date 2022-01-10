@@ -33,7 +33,7 @@ export default class SelectionSort extends List {
         this.j++
       } else {
         // Swap current index with minimum index
-        if (this._i != this.i) {
+        if (this._i !== this.i) {
           [this.items[this.i], this.items[this._i]] = [this.items[this._i], this.items[this.i]]
         }
         // Increment current index

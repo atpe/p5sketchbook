@@ -27,6 +27,9 @@ export default function Home() {
         <ListItemButton component={Link} to='/sorting-algorithms/bubble-sort'>
           <ListItemText primary='Bubble Sort' />
         </ListItemButton>
+        <ListItemButton component={Link} to='/sorting-algorithms/merge-sort'>
+          <ListItemText primary='Merge Sort' />
+        </ListItemButton>
       </CardContent >
     </Card>
   )

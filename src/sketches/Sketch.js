@@ -9,6 +9,7 @@ import { sortingSketch, sortingActions } from './sortingAlgorithms/main'
 import SelectionSort from './sortingAlgorithms/algorithms/selectionSort'
 import InsertionSort from './sortingAlgorithms/algorithms/insertionSort'
 import BubbleSort from './sortingAlgorithms/algorithms/bubbleSort'
+import MergeSort from './sortingAlgorithms/algorithms/mergeSort'
 
 
 /** Sketch component
@@ -32,6 +33,11 @@ export default function Sketch(props) {
     bubbleSort: {
       title: 'Bubble Sort',
       sketch: sketch => sortingSketch(sketch, new BubbleSort(sketchRef)),
+      actions: sortingActions,
+    },
+    mergeSort: {
+      title: 'Merge Sort',
+      sketch: sketch => sortingSketch(sketch, new MergeSort(sketchRef)),
       actions: sortingActions,
     },
   }
