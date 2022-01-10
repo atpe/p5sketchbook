@@ -1,33 +1,14 @@
-import CardContent from '@mui/material/CardContent'
 import CardActions from '@mui/material/CardActions'
-import FormControl from '@mui/material/FormControl'
-import Select from '@mui/material/Select'
-import InputLabel from '@mui/material/InputLabel'
-import MenuItem from '@mui/material/MenuItem'
 import Button from '@mui/material/Button'
 
 import SelectionSort from './algorithms/selectionSort'
 
-export function sortingActions(handleClick) {
+export function sortingActions(actions) {
   return (
-    <>
-      <CardContent>
-        <FormControl fullWidth>
-          <InputLabel id='algorithm-select-label'>Algorithm</InputLabel>
-          <Select
-            labelId='algorithm-select-label'
-            id='algorithm-select'
-          >
-            <MenuItem value='SELECTION'>Selection Sort</MenuItem>
-            <MenuItem value='INSERTION'>Insertion Sort</MenuItem>
-          </Select>
-        </FormControl>
-      </CardContent>
-
-      <CardActions>
-        <Button onClick={handleClick}>Run</Button>
-      </CardActions>
-    </>
+    <CardActions>
+      <Button onClick={actions.start}>Start</Button>
+      <Button onClick={actions.pause}>Pause</Button>
+    </CardActions >
   )
 }
 
@@ -41,8 +22,8 @@ export function sortingSketch(sketch, ref) {
 
   /** Setup function invoked by p5 */
   sketch.setup = () => {
-    console.log(`${clientWidth} x ${clientHeight}`);
     sketch.createCanvas(clientWidth, clientHeight)
+    sketch.noLoop()
     list.init()
     list.shuffle()
   }

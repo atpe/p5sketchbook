@@ -30,7 +30,7 @@ export default class List {
     sketch.push()
     this.iterate(x => {
       const y = this.items[x]
-      sketch.stroke([200, 200 - (y / this.height) * 200, 200])
+      sketch.stroke([237, 34, 100, 55 + (y / this.height) * 200])
       sketch.line(x, this.height, x, this.height - y)
     })
     sketch.pop()

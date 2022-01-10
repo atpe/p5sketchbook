@@ -7,6 +7,7 @@ import Card from '@mui/material/Card'
 import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
 import List from '@mui/material/List'
+import ListSubheader from '@mui/material/ListSubheader'
 import ListItemButton from '@mui/material/ListItemButton'
 import ListItemText from '@mui/material/ListItemText'
 import ListItemIcon from '@mui/material/ListItemIcon'
@@ -19,11 +20,12 @@ export default function Home() {
     <Card>
       <CardHeader title='Sketches' />
       <CardContent component={List}>
-        <ListItemButton component={Link} to='/sorting'>
-          <ListItemIcon>
-            <SortIcon color='secondary' />
-          </ListItemIcon>
-          <ListItemText primary='Sorting Algorithms' secondary='beta' />
+        <ListSubheader>Sorting Algorithms</ListSubheader>
+        <ListItemButton component={Link} to='/selectionSort'>
+          <ListItemText primary='Selection Sort' />
+        </ListItemButton>
+        <ListItemButton component={Link} to='/insertionSort'>
+          <ListItemText primary='Insertion Sort' secondary='beta' />
         </ListItemButton>
       </CardContent >
     </Card>

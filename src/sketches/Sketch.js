@@ -4,40 +4,40 @@ import p5 from 'p5'
 
 import Card from '@mui/material/Card'
 import CardHeader from '@mui/material/CardHeader'
-import CardContent from '@mui/material/CardContent'
-import CardActions from '@mui/material/CardActions'
 
 import { sortingSketch, sortingActions } from './sorting/main'
 
 const sketches = {
-  sorting: {
-    title: 'Sorting Algorithms',
+  selectionSort: {
+    title: 'Selection Sort',
     sketch: sortingSketch,
     actions: sortingActions,
   }
 }
 
 /** Sketch component
- * @returns A p5.js instance within a component
+ * @returns A p5.js instance within a card component
  */
 export default function Sketch(props) {
-  /** Reference for p5 to draw canvas */
+  /** Reference for component to attatch p5 canvas */
   const sketchRef = createRef()
 
-  /** Create new instance of p5 */
+  /** Instance of p5.js */
   let instance
-  function handleClick() {
-    instance = new p5(sketch => sketches[props.sketch].sketch(sketch, sketchRef), sketchRef.current)
+  useEffect(() => instance = new p5(sketch => sketches[props.sketch].sketch(sketch, sketchRef), sketchRef.current))
+
+  const actions = {
+    isLooping: () => instance.isLooping(),
+    start: () => instance.loop(),
+    pause: () => instance.noLoop(),
   }
-  // let instance
-  // useEffect(() => instance = new p5(sketch => sketches[props.sketch].sketch(sketch, sketchRef)), [instance])
 
   /** Return sketch */
   return (
     <>
       <Card>
         <CardHeader title={sketches[props.sketch].title} />
-        {sketches[props.sketch].actions(handleClick)}
+        {sketches[props.sketch].actions(actions)}
       </Card>
       <br />
       <Card sx={{ padding: '0px', flex: 1 }} ref={sketchRef} />
