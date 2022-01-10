@@ -21,11 +21,14 @@ export default function Home() {
       <CardHeader title='Sketches' />
       <CardContent component={List}>
         <ListSubheader>Sorting Algorithms</ListSubheader>
-        <ListItemButton component={Link} to='/selectionSort'>
+        <ListItemButton component={Link} to='/sorting-algorithms/selection-sort'>
           <ListItemText primary='Selection Sort' />
         </ListItemButton>
-        <ListItemButton component={Link} to='/insertionSort'>
-          <ListItemText primary='Insertion Sort' secondary='beta' />
+        <ListItemButton component={Link} to='/sorting-algorithms/insertion-sort'>
+          <ListItemText primary='Insertion Sort' />
+        </ListItemButton>
+        <ListItemButton component={Link} to='/sorting-algorithms/bubble-sort'>
+          <ListItemText primary='Bubble Sort' secondary='beta' />
         </ListItemButton>
       </CardContent >
     </Card>

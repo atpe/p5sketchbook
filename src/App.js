@@ -31,7 +31,10 @@ export default function App() {
         <Routes>
           <Route exact path='/' element={<Home />} />
           <Route path='/'>
-            <Route path='selectionSort' element={<Sketch sketch='selectionSort' />} />
+            <Route path='sorting-algorithms'>
+              <Route path='selection-sort' element={<Sketch sketch='selectionSort' />} />
+              <Route path='insertion-sort' element={<Sketch sketch='insertionSort' />} />
+            </Route>
           </Route>
         </Routes>
       </Box>

@@ -1,17 +1,20 @@
 export default class List {
+  static maxLines = 50
+
   constructor(width, height) {
     this.width = width
     this.height = height
+    this.spacing = this.width / List.maxLines
     this.items = []
   }
 
   iterate(callback) {
-    for (let x = 0; x < this.width; x++) callback(x)
+    for (let x = 0; x < List.maxLines; x++) callback(x)
   }
 
   init() {
     this.iterate(x => {
-      const y = x / this.width * this.height
+      const y = x / List.maxLines * this.height
       this.items[x] = y
     })
   }
@@ -29,9 +32,11 @@ export default class List {
   draw(sketch) {
     sketch.push()
     this.iterate(x => {
-      const y = this.items[x]
-      sketch.stroke([237, 34, 100, 55 + (y / this.height) * 200])
-      sketch.line(x, this.height, x, this.height - y)
+      const _y = this.items[x]
+      const _x = x * this.spacing
+      sketch.noStroke()
+      sketch.fill([237, 34, 100, 55 + (_y / this.height) * 200])
+      sketch.rect(_x, this.height - _y, this.spacing, _y)
     })
     sketch.pop()
   }
