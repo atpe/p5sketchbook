@@ -1,4 +1,3 @@
-import { rootShouldForwardProp } from '@mui/material/styles/styled'
 import List from '../list'
 
 // Does not assume unique and/or linear array
@@ -10,7 +9,7 @@ export default class MergeSort extends List {
     this.isSorted = false
 
     this.sorter = this.Sorter(0, this.items.length)
-    this._items = new Array(this.items.length).fill(-1)
+    this._items = Array(this.items.length).fill(-1)
 
     this.l = 0
     this.m = 1
@@ -64,9 +63,9 @@ export default class MergeSort extends List {
 
   reset() {
     this.shuffle()
+    this.isSorted = false
     this.sorter = this.Sorter(0, this.items.length)
     this._items = new Array(this.items.length).fill(-1)
-
     this.l = 0
     this.m = 1
     this.h = 2
@@ -83,6 +82,7 @@ export default class MergeSort extends List {
     if (this.isSorted) return
 
     sketch.push()
+
     for (let i = 0; i < this._items.length; i++) {
       if (this.items[i] < 0) continue
 

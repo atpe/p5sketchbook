@@ -35,6 +35,7 @@ export default function App() {
               <Route path='insertion-sort' element={<Sketch sketch='insertionSort' />} />
               <Route path='bubble-sort' element={<Sketch sketch='bubbleSort' />} />
               <Route path='merge-sort' element={<Sketch sketch='mergeSort' />} />
+              <Route path='heap-sort' element={<Sketch sketch='heapSort' />} />
             </Route>
           </Route>
         </Routes>

@@ -18,13 +18,13 @@ export default class SelectionSort extends List {
 
   sort() {
     // Iterating over width
-    if (this.i < List.maxLines) {
+    if (this.i < List.max) {
       // Keeping or setting the minimum index
       this._i = this._i || this.i
       // Keeping or setting the comparison index
       this.j = this.j || this.i + 1
       // Iterating over width
-      if (this.j < List.maxLines) {
+      if (this.j < List.max) {
         // Setting minimum to lower value if found
         if (this.items[this.j] < this.items[this._i]) {
           this._i = this.j
@@ -46,7 +46,7 @@ export default class SelectionSort extends List {
   }
 
   highlight(sketch) {
-    if (this.i === List.maxLines) return
+    if (this.i === List.max) return
     sketch.push()
     sketch.strokeWeight(2)
     sketch.stroke([100, 255, 100, 100])

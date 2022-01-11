@@ -19,7 +19,7 @@ export default class InsertionSort extends List {
 
   sort() {
     // Iterating over width
-    if (this._i < List.maxLines) {
+    if (this._i < List.max) {
       // Check if current index is less than previous index
       if (this.items[this._i] < this.items[this.j]) {
         // Swap previous index with current index
@@ -38,7 +38,7 @@ export default class InsertionSort extends List {
   }
 
   highlight(sketch) {
-    if (this._i === List.maxLines) return
+    if (this._i === List.max) return
     sketch.push()
     sketch.strokeWeight(2)
     sketch.stroke([100, 255, 100, 100])

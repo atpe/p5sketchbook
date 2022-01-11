@@ -30,6 +30,9 @@ export default function Home() {
         <ListItemButton component={Link} to='/sorting-algorithms/merge-sort'>
           <ListItemText primary='Merge Sort' />
         </ListItemButton>
+        <ListItemButton component={Link} to='/sorting-algorithms/heap-sort'>
+          <ListItemText primary='Heap Sort' />
+        </ListItemButton>
       </CardContent >
     </Card>
   )

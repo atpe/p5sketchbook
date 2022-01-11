@@ -18,7 +18,7 @@ export default class BubbleSort extends List {
   }
 
   check() {
-    for (let i = 1; i < List.maxLines; i++) {
+    for (let i = 1; i < List.max; i++) {
       if (this.items[i] < this.items[i - 1]) return false
     }
     return true
@@ -26,7 +26,7 @@ export default class BubbleSort extends List {
 
   sort() {
     // Iterating over width
-    if (!this.isSorted && this.i < List.maxLines) {
+    if (!this.isSorted && this.i < List.max) {
       // Check if current index is less than previous index
       if (this.items[this.i] < this.items[this.j]) {
         // Swap previous index with current index

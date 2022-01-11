@@ -10,6 +10,7 @@ import SelectionSort from './sortingAlgorithms/algorithms/selectionSort'
 import InsertionSort from './sortingAlgorithms/algorithms/insertionSort'
 import BubbleSort from './sortingAlgorithms/algorithms/bubbleSort'
 import MergeSort from './sortingAlgorithms/algorithms/mergeSort'
+import HeapSort from './sortingAlgorithms/algorithms/heapSort'
 
 
 /** Sketch component
@@ -38,6 +39,11 @@ export default function Sketch(props) {
     mergeSort: {
       title: 'Merge Sort',
       sketch: sketch => sortingSketch(sketch, new MergeSort(sketchRef)),
+      actions: sortingActions,
+    },
+    heapSort: {
+      title: 'Heap Sort',
+      sketch: sketch => sortingSketch(sketch, new HeapSort(sketchRef)),
       actions: sortingActions,
     },
   }

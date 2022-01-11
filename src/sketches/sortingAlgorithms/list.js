@@ -1,10 +1,10 @@
 export default class List {
-  static maxLines = 100
+  static max = 64
 
   constructor(width, height) {
     this.width = width
     this.height = height
-    this.spacing = this.width / List.maxLines
+    this.spacing = this.width / List.max
     this.items = []
 
     this.init()
@@ -12,12 +12,12 @@ export default class List {
   }
 
   iterate(callback) {
-    for (let x = 0; x < List.maxLines; x++) callback(x)
+    for (let x = 0; x < List.max; x++) callback(x)
   }
 
   init() {
     this.iterate(x => {
-      const y = x / List.maxLines * this.height
+      const y = x / List.max * this.height
       this.items[x] = y
     })
   }
