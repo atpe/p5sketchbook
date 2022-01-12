@@ -1,8 +1,8 @@
 export default class Boundary {
-  constructor(start, end) {
+  constructor(start, end, weight) {
     this.start = start
     this.end = end
-    this.weight = 5
+    this.weight = weight
   }
 
   get points() {

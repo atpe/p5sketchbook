@@ -4,7 +4,7 @@ export default class Caster {
   static maxRays = 180
 
   constructor(position, size, viewDistance) {
-    this.position = position
+    this.position = position.copy()
     this.size = size
 
     this.rays = []
@@ -43,11 +43,20 @@ export default class Caster {
         const dx = (x2 - x1)
 
         const { x, y } = _position
+        const r = this.size / 2
 
         let dist
         if (dy === 0) {
+          if (
+            (x1 < x2 && (x + r < x1 || x - r > x2)) ||
+            (x1 > x2 && (x - r > x1 || x + r < x2))
+          ) continue
           dist = Math.abs(y1 - y)
         } else if (dx === 0) {
+          if (
+            (y1 < y2 && (y + r < y1 || y - r > y2)) ||
+            (y1 > y2 && (y - r > y1 || y + r < y2))
+          ) continue
           dist = Math.abs(x1 - x)
         } else {
           const m = dy / dx
