@@ -37,6 +37,9 @@ export default function App() {
               <Route path='merge-sort' element={<Sketch sketch='mergeSort' />} />
               <Route path='heap-sort' element={<Sketch sketch='heapSort' />} />
             </Route>
+            <Route path='ray-casting'>
+              <Route path='2d' element={<Sketch sketch='rayCasting2d' />} />
+            </Route>
           </Route>
         </Routes>
       </Box>

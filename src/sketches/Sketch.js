@@ -11,6 +11,7 @@ import InsertionSort from './sortingAlgorithms/algorithms/insertionSort'
 import BubbleSort from './sortingAlgorithms/algorithms/bubbleSort'
 import MergeSort from './sortingAlgorithms/algorithms/mergeSort'
 import HeapSort from './sortingAlgorithms/algorithms/heapSort'
+import { rayCastingSketch, rayCastingActions } from './rayCasting/main'
 
 
 /** Sketch component
@@ -45,6 +46,11 @@ export default function Sketch(props) {
       title: 'Heap Sort',
       sketch: sketch => sortingSketch(sketch, new HeapSort(sketchRef)),
       actions: sortingActions,
+    },
+    rayCasting2d: {
+      title: '2D Ray Casting',
+      sketch: sketch => rayCastingSketch(sketch, sketchRef),
+      actions: rayCastingActions,
     },
   }
 

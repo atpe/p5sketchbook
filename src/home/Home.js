@@ -33,6 +33,10 @@ export default function Home() {
         <ListItemButton component={Link} to='/sorting-algorithms/heap-sort'>
           <ListItemText primary='Heap Sort' />
         </ListItemButton>
+        <ListSubheader>Ray Casting</ListSubheader>
+        <ListItemButton component={Link} to='/ray-casting/2d'>
+          <ListItemText primary='2D Ray Casting' />
+        </ListItemButton>
       </CardContent >
     </Card>
   )
