@@ -13,6 +13,7 @@ import CardHeader from '@mui/material/CardHeader'
 // Sketch imports
 import { sortingSketch, sortingActions } from './sortingAlgorithms/main'
 import { rayCastingSketch, rayCastingActions } from './rayCasting/main'
+import { quadtreeSketch, quadtreeActions } from './quadtree/main'
 // Sorting algorithm imports
 import SelectionSort from './sortingAlgorithms/algorithms/selectionSort'
 import InsertionSort from './sortingAlgorithms/algorithms/insertionSort'
@@ -62,10 +63,15 @@ export default function Sketch(props) {
       sketch: sketch => sortingSketch(sketch, new HeapSort(sketchRef)),
       actions: sortingActions,
     },
-    rayCasting2d: {
-      title: '2D Ray Casting',
+    rayCasting: {
+      title: 'Ray Casting',
       sketch: sketch => rayCastingSketch(sketch, sketchRef),
       actions: rayCastingActions,
+    },
+    quadtree: {
+      title: 'Quadtree',
+      sketch: sketch => quadtreeSketch(sketch, sketchRef),
+      actions: quadtreeActions,
     },
   }
 

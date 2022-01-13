@@ -43,9 +43,12 @@ export default function Home() {
         <ListItemButton component={Link} to='/sorting-algorithms/heap-sort'>
           <ListItemText primary='Heap Sort' />
         </ListItemButton>
-        <ListSubheader>Ray Casting</ListSubheader>
-        <ListItemButton component={Link} to='/ray-casting/2d'>
-          <ListItemText primary='2D Ray Casting' />
+        <ListSubheader>Game and Graphics Algorithms</ListSubheader>
+        <ListItemButton component={Link} to='/game-and-graphics/ray-casting'>
+          <ListItemText primary='Ray Casting' />
+        </ListItemButton>
+        <ListItemButton component={Link} to='/game-and-graphics/quadtree'>
+          <ListItemText primary='Quadtree' />
         </ListItemButton>
       </CardContent >
     </Card>

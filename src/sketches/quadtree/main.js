@@ -1,5 +1,5 @@
 /**
- * @module RayCasting
+ * @module Quadtree
  * @author Adam Evans
  */
 
@@ -8,21 +8,18 @@ import CardContent from '@mui/material/CardContent'
 import CardActions from '@mui/material/CardActions'
 import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
+import Quadtree from './components/quadtree'
 
 // Local component imports
-import World from './components/world'
 
-const obstacleLimit = 100
+const pointLimit = 1000
 
-export function rayCastingActions(actions) {
+export function quadtreeActions(actions) {
   return (
     <>
       <CardContent>
         <Typography>
-          Use the W, A, S, and D keys to move the caster around to see how its rays interact with the boundaries.
-        </Typography>
-        <Typography>
-          Click the mouse to insert an obstacle. (Limited to {obstacleLimit}).
+          Click the mouse to insert a point. (Limited to {pointLimit}).
         </Typography>
       </CardContent>
       <CardActions>
@@ -32,11 +29,11 @@ export function rayCastingActions(actions) {
   )
 }
 
-/** Main rayCasting sketch function
+/** Main quadtree sketch function
  *  @param {Function} sketch The p5.js sketch function
  *  @param {React.RefObject} sketch The p5.js sketch function
  */
-export function rayCastingSketch(sketch, sketchRef) {
+export function quadtreeSketch(sketch, sketchRef) {
   const { clientWidth, clientHeight } = sketchRef.current
 
   /**
@@ -45,7 +42,8 @@ export function rayCastingSketch(sketch, sketchRef) {
    * @param {Function} sketch The p5.js sketch function
    */
   function reset(sketch) {
-    sketch.world.reset()
+    sketch.quadtree.reset()
+    sketch.points = []
   }
 
   /**
@@ -61,7 +59,8 @@ export function rayCastingSketch(sketch, sketchRef) {
     const center = sketch.createVector(clientWidth / 2, clientHeight / 2)
     const size = sketch.createVector(clientWidth, clientHeight)
 
-    sketch.world = new World(center, size)
+    sketch.quadtree = new Quadtree(center, size, 10)
+    sketch.points = []
   }
 
   /**
@@ -70,9 +69,10 @@ export function rayCastingSketch(sketch, sketchRef) {
    * @param {Function} sketch The p5.js sketch function
    */
   function mousePressed(sketch) {
-    const position = sketch.createVector(sketch.mouseX, sketch.mouseY)
-    if (sketch.world.contains(position) && sketch.world.obstacles.length <= obstacleLimit) {
-      sketch.world.addObstacle(position)
+    const point = sketch.createVector(sketch.mouseX, sketch.mouseY)
+    if (sketch.quadtree.contains(point)) {
+      sketch.quadtree.push(point)
+      sketch.points.push(point)
     }
   }
 
@@ -83,7 +83,13 @@ export function rayCastingSketch(sketch, sketchRef) {
    */
   function draw(sketch) {
     sketch.background(120)
-    sketch.world.update(sketch)
+
+    sketch.quadtree.draw(sketch)
+
+    for (const point of sketch.points) {
+      sketch.stroke(255)
+      sketch.point(point)
+    }
   }
 
   sketch.reset = () => reset(sketch)
