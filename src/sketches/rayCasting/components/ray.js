@@ -1,23 +1,36 @@
 import { Vector } from "p5"
+import Caster from "./caster"
 
 export default class Ray {
   constructor(start, angle, length) {
     this.start = start
     this.angle = angle
-    this.length = length
+    this.maxLength = length
+    this.maxEnd = Vector.add(start, Vector.fromAngle(angle, length))
+  }
+
+  get end() {
+    return this.intersectedEnd || this.maxEnd
+  }
+
+  get length() {
+    return this.intersectedLength || this.maxLength
   }
 
   get points() {
-    const end = this.intersection || Vector.add(this.start, Vector.fromAngle(this.angle, this.length))
-    return { x1: this.start.x, y1: this.start.y, x2: end.x, y2: end.y }
+    return { x1: this.start.x, y1: this.start.y, x2: this.end.x, y2: this.end.y }
   }
 
   reposition(position) {
     this.start = position
+    this.maxEnd = Vector.add(this.start, Vector.fromAngle(this.angle, this.maxLength))
   }
 
   clearIntersection() {
-    if (this.intersection) this.intersection = undefined
+    if (this.intersectedEnd) {
+      this.intersectedEnd = undefined
+      this.intersectedLength = undefined
+    }
   }
 
   calcIntersection(x3, y3, x4, y4) {
@@ -33,7 +46,8 @@ export default class Ray {
     const u = uNum / den
 
     if (t >= 0 && t <= 1 && u >= 0 && u <= 1) {
-      this.intersection = new Vector(x1 + t * (x2 - x1), y1 + t * (y2 - y1))
+      this.intersectedEnd = new Vector(x1 + t * (x2 - x1), y1 + t * (y2 - y1))
+      this.intersectedLength = this.start.dist(this.end)
       return true
     } else {
       return false
@@ -41,12 +55,11 @@ export default class Ray {
   }
 
   draw(sketch) {
-    sketch.push()
-    sketch.stroke(255, 50)
     const { x1, y1, x2, y2 } = this.points
-    sketch.line(x1, y1, x2, y2)
-    sketch.stroke(255, 255, 0)
-    sketch.strokeWeight(10)
+    sketch.push()
+    sketch.noStroke()
+    sketch.fill(255, 50)
+    sketch.arc(x1, y1, this.length * 2, this.length * 2, this.angle - Caster.maxAngle / 2, this.angle + Caster.maxAngle / 2)
     sketch.pop()
   }
 }

@@ -1,10 +1,11 @@
 import { Vector } from "p5"
 import Boundary from "./boundary"
+import Caster from "./caster"
 
 export default class Box {
   constructor(position, size, weight, boundingBox) {
-    this.position = position
-    this.size = size
+    this.position = position.copy()
+    this.size = size.copy()
     this.weight = weight
 
     this.halfSize = this.calcHalfSize()
@@ -54,11 +55,12 @@ export default class Box {
     ]
   }
 
-  contains(position) {
-    const weight = this.weight || 0
-    const isValidX = position.x > weight && position.x < this.size.x - weight
-    const isValidY = position.y > weight && position.y < this.size.y - weight
-    return isValidX && isValidY
+  contains(object) {
+    const radius = (object.size ? object.size / 2 : 0) - this.weight
+    const { x, y } = object.position ? object.position : object
+    const isWithinX = x + radius > this.sides.l && x - radius < this.sides.r
+    const isWithinY = y + radius > this.sides.t && y - radius < this.sides.b
+    return isWithinX && isWithinY
   }
 
   confineWithin(box) {
@@ -101,14 +103,6 @@ export default class Box {
     const below = this.sides.t >= box.sides.b
 
     return !(left || right || above || below)
-  }
-
-  createInnerBoxAt(position) {
-    const augX = (Math.random() + 1) * 10
-    const augY = (Math.random() + 1) * 10
-    const size = Vector.div(this.size, [augX, augY])
-    const box = new Box(position, size, 0, this)
-    return box
   }
 
   draw(sketch) {

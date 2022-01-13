@@ -4,6 +4,7 @@ import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
 import Caster from './components/caster'
 import Box from './components/box'
+import World from './components/world'
 
 const obstacleLimit = 100
 
@@ -31,11 +32,9 @@ export function rayCastingActions(actions) {
 export function rayCastingSketch(sketch, sketchRef) {
   const { clientWidth, clientHeight } = sketchRef.current
 
-  sketch.boxes = []
-
   sketch.reset = () => {
-    sketch.boxes = [sketch.boxes[0]]
-    sketch.caster.reset(sketch.createVector(clientWidth / 2, clientHeight / 2))
+    // sketch.boxes = [sketch.boxes[0]]
+    // sketch.caster.reset(sketch.createVector(clientWidth / 2, clientHeight / 2))
   }
 
   /** Setup function invoked by p5 */
@@ -45,19 +44,15 @@ export function rayCastingSketch(sketch, sketchRef) {
     sketch.rectMode(sketch.CENTER)
 
     const center = sketch.createVector(clientWidth / 2, clientHeight / 2)
+    const size = sketch.createVector(clientWidth, clientHeight)
 
-    const viewDistance = Math.max(clientWidth, clientHeight)
-    sketch.caster = new Caster(center, viewDistance / 50, viewDistance)
-
-    const weight = viewDistance / 100
-    const size = sketch.createVector(clientWidth - weight, clientHeight - weight)
-    sketch.boxes.push(new Box(center, size, weight))
+    sketch.world = new World(center, size)
   }
 
   sketch.mousePressed = () => {
     const position = sketch.createVector(sketch.mouseX, sketch.mouseY)
-    if (sketch.boxes[0].contains(position) && sketch.boxes.length <= obstacleLimit) {
-      sketch.boxes.push(sketch.boxes[0].createInnerBoxAt(position))
+    if (sketch.world.contains(position) && sketch.world.obstacles.length <= obstacleLimit) {
+      sketch.world.addObstacle(position)
     }
   }
 
@@ -65,12 +60,7 @@ export function rayCastingSketch(sketch, sketchRef) {
   sketch.draw = () => {
     sketch.background(120)
 
-    if (sketch.isLooping()) sketch.caster.move(sketch)
-
-    sketch.caster.cast(sketch.boxes)
-    sketch.caster.draw(sketch)
-    for (const box of sketch.boxes) box.draw(sketch)
-
-    sketch.text(Math.round(sketch.frameRate(), 2), 10, 20)
+    sketch.world.update(sketch)
+    sketch.world.render(sketch)
   }
 }
