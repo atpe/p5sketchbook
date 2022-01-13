@@ -3,7 +3,8 @@
  * @author Adam Evans
  */
 
-// Local component importsimport List from '../list'
+// Local component imports
+import List from '../list'
 
 // Does not assume unique and/or linear array
 export default class SelectionSort extends List {

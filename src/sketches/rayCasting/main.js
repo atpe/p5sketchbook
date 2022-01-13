@@ -86,8 +86,8 @@ export function rayCastingSketch(sketch, sketchRef) {
     sketch.world.update(sketch)
   }
 
-  sketch.reset = () => reset(sketch, list)
-  sketch.setup = () => setup(sketch, list)
+  sketch.reset = () => reset(sketch)
+  sketch.setup = () => setup(sketch)
   sketch.mousePressed = () => mousePressed(sketch)
-  sketch.draw = () => draw(sketch, list)
+  sketch.draw = () => draw(sketch)
 }
