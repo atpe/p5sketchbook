@@ -2,17 +2,15 @@ import { Vector } from "p5"
 import Boundary from "./boundary"
 
 export default class Box {
-  constructor(position, size, weight) {
+  constructor(position, size, weight, boundingBox) {
     this.position = position
     this.size = size
     this.weight = weight
 
-    this.halfSize = Vector.div(this.size, 2)
+    this.halfSize = this.calcHalfSize()
+    this.sides = this.calcSides()
 
-    this.t = position.y - this.halfSize.y
-    this.r = position.x + this.halfSize.x
-    this.b = position.y + this.halfSize.y
-    this.l = position.x - this.halfSize.x
+    if (boundingBox) this.confineWithin(boundingBox)
 
     this.corners = this.calcCorners()
     this.boundaries = this.calcBoundaries()
@@ -23,6 +21,19 @@ export default class Box {
 
     this.corners = this.calcCorners()
     this.boundaries = this.calcBoundaries()
+  }
+
+  calcHalfSize() {
+    return Vector.div(this.size, 2)
+  }
+
+  calcSides() {
+    return {
+      t: this.position.y - this.halfSize.y,
+      r: this.position.x + this.halfSize.x,
+      b: this.position.y + this.halfSize.y,
+      l: this.position.x - this.halfSize.x,
+    }
   }
 
   calcCorners() {
@@ -43,50 +54,66 @@ export default class Box {
     ]
   }
 
-  isOverlapping(box) {
-    const left = this.r <= box.l
-    const right = this.l >= box.r
-    const above = this.b <= box.t
-    const below = this.t >= box.b
+  contains(position) {
+    const weight = this.weight || 0
+    const isValidX = position.x > weight && position.x < this.size.x - weight
+    const isValidY = position.y > weight && position.y < this.size.y - weight
+    return isValidX && isValidY
+  }
+
+  confineWithin(box) {
+    let isModified = false
+    const dt = (box.sides.t + box.weight / 2) - (this.sides.t - this.weight / 2)
+    if (dt > 0) {
+      isModified = true
+      this.size.y -= dt
+      this.position.y += dt / 2
+    }
+    const dl = (box.sides.l + box.weight / 2) - (this.sides.l - this.weight / 2)
+    if (dl > 0) {
+      isModified = true
+      this.size.x -= dl
+      this.position.x += dl / 2
+    }
+    const db = (box.sides.b - box.weight / 2) - (this.sides.b + this.weight / 2)
+    if (db < 0) {
+      isModified = true
+      this.size.y += db
+      this.position.y += db / 2
+    }
+    const dr = (box.sides.r - box.weight / 2) - (this.sides.r + this.weight / 2)
+    if (dr < 0) {
+      isModified = true
+      this.size.x += dr
+      this.position.x += dr / 2
+    }
+
+    if (isModified) {
+      this.halfSize = this.calcHalfSize()
+      this.sides = this.calcSides()
+    }
+  }
+
+  overlaps(box) {
+    const left = this.sides.r <= box.sides.l
+    const right = this.sides.l >= box.sides.r
+    const above = this.sides.b <= box.sides.t
+    const below = this.sides.t >= box.sides.b
 
     return !(left || right || above || below)
   }
 
-  getRandomInnerPosition(size) {
-    const randX = Math.random() * ((this.size.x - size.x) / 2)
-    const randY = Math.random() * ((this.size.y - size.y) / 2)
-    const offset = Vector.random2D().mult(randX, randY)
-    return Vector.add(this.position, offset)
-  }
-
-  getInnerBox(boxes) {
+  createInnerBoxAt(position) {
     const augX = (Math.random() + 1) * 10
     const augY = (Math.random() + 1) * 10
     const size = Vector.div(this.size, [augX, augY])
-    const position = this.getRandomInnerPosition(size)
-    const box = new Box(position, size)
-
-    let isValid = false
-    let i = 0
-    while (!isValid && boxes.length !== 1) {
-      let _isValid = true
-      for (let i = 1; i < boxes.length; i++) {
-        if (box.isOverlapping(boxes[i])) _isValid = false
-      }
-      isValid = _isValid
-      if (!isValid) {
-        i++
-        box.reposition(this.getRandomInnerPosition(size))
-      }
-      if (i > 50) return
-    }
-
+    const box = new Box(position, size, 0, this)
     return box
   }
 
   draw(sketch) {
     sketch.push()
-    if (this.weight) {
+    if (this.weight > 0) {
       sketch.noFill()
       sketch.strokeWeight(this.weight)
     } else {

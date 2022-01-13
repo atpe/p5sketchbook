@@ -1,7 +1,7 @@
 import Ray from "./ray"
 
 export default class Caster {
-  static maxRays = 180
+  static maxRays = 360
 
   constructor(position, size, viewDistance) {
     this.position = position.copy()
