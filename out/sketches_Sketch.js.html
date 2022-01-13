@@ -26,25 +26,44 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import React, { createRef, useEffect } from 'react'
+            <pre class="prettyprint source linenums"><code>/**
+ * @module Sketch
+ * @author Adam Evans
+ */
 
+// React imports
+import React, { createRef, useEffect } from 'react'
+// P5 library imports
 import p5 from 'p5'
-
+// MUI component imports
 import Card from '@mui/material/Card'
 import CardHeader from '@mui/material/CardHeader'
+// Sketch imports
+import { sortingSketch, sortingActions } from './sortingAlgorithms/main'
+import { rayCastingSketch, rayCastingActions } from './rayCasting/main'
+// Sorting algorithm imports
+import SelectionSort from './sortingAlgorithms/algorithms/selectionSort'
+import InsertionSort from './sortingAlgorithms/algorithms/insertionSort'
+import BubbleSort from './sortingAlgorithms/algorithms/bubbleSort'
+import MergeSort from './sortingAlgorithms/algorithms/mergeSort'
+import HeapSort from './sortingAlgorithms/algorithms/heapSort'
 
-import { sortingSketch, sortingActions } from './sorting/main'
-import SelectionSort from './sorting/algorithms/selectionSort'
-import InsertionSort from './sorting/algorithms/insertionSort'
 
-
-/** Sketch component
- * @returns A p5.js instance within a card component
+/**
+ * Render sketch
+ * 
+ * @default
+ * @returns {React.Component} Sketch component
  */
 export default function Sketch(props) {
-  /** Reference for component to attatch p5 canvas */
+  /**
+   * @constant {React.RefObject} sketchRef DOM element reference for p5 to insert canvas
+   */
   const sketchRef = createRef()
 
+  /**
+   * @constant {object} sketches Object containing each sketch and associated actions
+   */
   const sketches = {
     selectionSort: {
       title: 'Selection Sort',
@@ -56,18 +75,43 @@ export default function Sketch(props) {
       sketch: sketch => sortingSketch(sketch, new InsertionSort(sketchRef)),
       actions: sortingActions,
     },
+    bubbleSort: {
+      title: 'Bubble Sort',
+      sketch: sketch => sortingSketch(sketch, new BubbleSort(sketchRef)),
+      actions: sortingActions,
+    },
+    mergeSort: {
+      title: 'Merge Sort',
+      sketch: sketch => sortingSketch(sketch, new MergeSort(sketchRef)),
+      actions: sortingActions,
+    },
+    heapSort: {
+      title: 'Heap Sort',
+      sketch: sketch => sortingSketch(sketch, new HeapSort(sketchRef)),
+      actions: sortingActions,
+    },
+    rayCasting2d: {
+      title: '2D Ray Casting',
+      sketch: sketch => rayCastingSketch(sketch, sketchRef),
+      actions: rayCastingActions,
+    },
   }
 
-  /** Instance of p5.js */
+  /**
+   * @var {p5} instance p5 instance
+   */
   let instance
   useEffect(() => instance = new p5(sketch => sketches[props.sketch].sketch(sketch), sketchRef.current))
 
+  /**
+   * @constant {object} actions Set of functions to be called outside of p5 canvas interaction
+   */
   const actions = {
     start: () => instance.loop(),
     pause: () => instance.noLoop(),
+    reset: () => instance.reset(),
   }
 
-  /** Return sketch */
   return (
     &lt;>
       &lt;Card>
@@ -88,13 +132,13 @@ export default function Sketch(props) {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#sortingSketch">sortingSketch</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-App.html">App</a></li><li><a href="module-Boundary.html">Boundary</a></li><li><a href="module-Box.html">Box</a></li><li><a href="module-BubbleSort.html">BubbleSort</a></li><li><a href="module-Caster.html">Caster</a></li><li><a href="module-HeapSort.html">HeapSort</a></li><li><a href="module-Home.html">Home</a></li><li><a href="module-InsertionSort.html">InsertionSort</a></li><li><a href="module-List.html">List</a></li><li><a href="module-MergeSort.html">MergeSort</a></li><li><a href="module-NavBar.html">NavBar</a></li><li><a href="module-Ray.html">Ray</a></li><li><a href="module-RayCasting.html">RayCasting</a></li><li><a href="module-SelectionSort.html">SelectionSort</a></li><li><a href="module-Sketch.html">Sketch</a></li><li><a href="module-sortingAlgorithms.html">sortingAlgorithms</a></li><li><a href="module-World.html">World</a></li></ul><h3>Classes</h3><ul><li><a href="module-Boundary.html">Boundary</a></li><li><a href="module-Box.html">Box</a></li><li><a href="module-BubbleSort.html">BubbleSort</a></li><li><a href="module-Caster.html">Caster</a></li><li><a href="module-HeapSort.html">HeapSort</a></li><li><a href="module-HeapSort-MaxHeap.html">MaxHeap</a></li><li><a href="module-InsertionSort.html">InsertionSort</a></li><li><a href="module-List.html">List</a></li><li><a href="module-MergeSort.html">MergeSort</a></li><li><a href="module-Ray.html">Ray</a></li><li><a href="module-SelectionSort.html">SelectionSort</a></li><li><a href="module-World.html">World</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Mon Jan 10 2022 14:39:46 GMT+0000 (Greenwich Mean Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Thu Jan 13 2022 18:24:37 GMT+0000 (Greenwich Mean Time)
 </footer>
 
 <script> prettyPrint(); </script>

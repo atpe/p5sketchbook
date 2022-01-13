@@ -1,26 +1,41 @@
+/**
+ * @module Sketch
+ * @author Adam Evans
+ */
+
+// React imports
 import React, { createRef, useEffect } from 'react'
-
+// P5 library imports
 import p5 from 'p5'
-
+// MUI component imports
 import Card from '@mui/material/Card'
 import CardHeader from '@mui/material/CardHeader'
-
+// Sketch imports
 import { sortingSketch, sortingActions } from './sortingAlgorithms/main'
+import { rayCastingSketch, rayCastingActions } from './rayCasting/main'
+// Sorting algorithm imports
 import SelectionSort from './sortingAlgorithms/algorithms/selectionSort'
 import InsertionSort from './sortingAlgorithms/algorithms/insertionSort'
 import BubbleSort from './sortingAlgorithms/algorithms/bubbleSort'
 import MergeSort from './sortingAlgorithms/algorithms/mergeSort'
 import HeapSort from './sortingAlgorithms/algorithms/heapSort'
-import { rayCastingSketch, rayCastingActions } from './rayCasting/main'
 
 
-/** Sketch component
- * @returns A p5.js instance within a card component
+/**
+ * Render sketch
+ * 
+ * @default
+ * @returns {React.Component} Sketch component
  */
 export default function Sketch(props) {
-  /** Reference for component to attatch p5 canvas */
+  /**
+   * @constant {React.RefObject} sketchRef DOM element reference for p5 to insert canvas
+   */
   const sketchRef = createRef()
 
+  /**
+   * @constant {object} sketches Object containing each sketch and associated actions
+   */
   const sketches = {
     selectionSort: {
       title: 'Selection Sort',
@@ -54,17 +69,21 @@ export default function Sketch(props) {
     },
   }
 
-  /** Instance of p5.js */
+  /**
+   * @var {p5} instance p5 instance
+   */
   let instance
   useEffect(() => instance = new p5(sketch => sketches[props.sketch].sketch(sketch), sketchRef.current))
 
+  /**
+   * @constant {object} actions Set of functions to be called outside of p5 canvas interaction
+   */
   const actions = {
     start: () => instance.loop(),
     pause: () => instance.noLoop(),
     reset: () => instance.reset(),
   }
 
-  /** Return sketch */
   return (
     <>
       <Card>

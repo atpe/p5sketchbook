@@ -1,7 +1,17 @@
-import List from '../list'
+/**
+ * @module InsertionSort
+ * @author Adam Evans
+ */
+
+// Local component importsimport List from '../list'
 
 // Does not assume unique and/or linear array
 export default class InsertionSort extends List {
+  /**
+   * Creates a list with insertion sort capability
+   * 
+   * @param {React.RefObject} sketchRef Element in which sketch is rendered
+   */
   constructor(sketchRef) {
     const { clientWidth, clientHeight } = sketchRef.current
     super(clientWidth, clientHeight)
@@ -10,6 +20,7 @@ export default class InsertionSort extends List {
     this._i = 1
   }
 
+  /** Resets algorithm and reshuffles items */
   reset() {
     this.i = 1
     this._i = this.i
@@ -17,6 +28,7 @@ export default class InsertionSort extends List {
     this.shuffle()
   }
 
+  /** Sorts items by insertion sort */
   sort() {
     // Iterating over width
     if (this._i < List.max) {
@@ -37,6 +49,11 @@ export default class InsertionSort extends List {
     }
   }
 
+  /**
+   * Highlights key points of algorithm on given sketch
+   * 
+   * @param {p5} sketch The p5 sketch
+   */
   highlight(sketch) {
     if (this._i === List.max) return
     sketch.push()

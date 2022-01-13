@@ -1,26 +1,50 @@
+/**
+ * @module App
+ * @author Adam Evans
+ */
+
 // React imports
-import React, { useRef } from 'react'
+import React from 'react'
 // React-Router-Dom imports
 import { Routes, Route } from 'react-router-dom'
 import { useTheme } from '@emotion/react'
-// Mui component imports
+// MUI component imports
 import Box from '@mui/material/Box'
 // Local component imports
 import NavBar from './navBar/NavBar'
 import Home from './home/Home'
 import Sketch from './sketches/Sketch'
 
+/**
+ * @param {Theme} theme Mui theme passed to theme provider
+ * @returns {Number} The height of the window minus the app bar
+ */
 function getViewHeight(theme) {
   const toolbar = theme.mixins.toolbar
   const { innerWidth, innerHeight } = window
+
+  // Get height of navbar from theme
   let navBarHeight = toolbar.minHeight
-  if (innerWidth > theme.breakpoints.up('sm')) navBarHeight = toolbar[theme.breakpoints.up('sm')].minHeight
-  else if (innerWidth < innerHeight) navBarHeight = toolbar[`${theme.breakpoints.up('xs')} and (orientation: landscape)`].minHeight
-  const height = innerHeight - navBarHeight - 48 // 48 to accomodate padding and <br />
-  return height
+  if (innerWidth > theme.breakpoints.up('sm')) {
+    const key = `${theme.breakpoints.up('sm')}`
+    navBarHeight = toolbar[key].minHeight
+  } else if (innerWidth < innerHeight) {
+    const key = `${theme.breakpoints.up('xs')} and (orientation: landscape)`
+    navBarHeight = toolbar[key].minHeight
+  }
+
+  const padding = 48
+
+  // Return the height of remaining space
+  return innerHeight - navBarHeight - padding
 }
 
-/** Main app component */
+/**
+ * Render app
+ * 
+ * @default
+ * @returns {React.Component} App component
+ */
 export default function App() {
   const theme = useTheme()
   return (

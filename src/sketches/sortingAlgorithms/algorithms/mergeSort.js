@@ -1,7 +1,18 @@
+/**
+ * @module MergeSort
+ * @author Adam Evans
+ */
+
+// Local component imports
 import List from '../list'
 
 // Does not assume unique and/or linear array
 export default class MergeSort extends List {
+  /**
+   * Creates a list with merge sort capability
+   * 
+   * @param {React.RefObject} sketchRef Element in which sketch is rendered
+   */
   constructor(sketchRef) {
     const { clientWidth, clientHeight } = sketchRef.current
     super(clientWidth, clientHeight)
@@ -16,6 +27,15 @@ export default class MergeSort extends List {
     this.h = 2
   }
 
+  /**
+   * Creates new merge sort generator function
+   * @generator
+   * @param {Number} l Low index
+   * @param {Number} h High index
+   * @yields {Function} Left side recursive sorter function
+   * @yields {Function} Right side recursive sorter function
+   * @yields {Function} Merger function
+   */
   * Sorter(l, h) {
     if (h - l > 1) {
       const m = Math.floor((l + h) / 2)
@@ -25,6 +45,13 @@ export default class MergeSort extends List {
     }
   }
 
+  /**
+   * Merges sorted sections of items array
+   * 
+   * @param {Number} l Low index
+   * @param {Number} m Middle index
+   * @param {Number} h High index
+   */
   * Merger(l, m, h) {
     this.l = l
     this.m = m
@@ -61,6 +88,8 @@ export default class MergeSort extends List {
     yield
   }
 
+
+  /** Resets algorithm and reshuffles items */
   reset() {
     this.shuffle()
     this.isSorted = false
@@ -71,6 +100,7 @@ export default class MergeSort extends List {
     this.h = 2
   }
 
+  /** Sorts items by merge sort */
   sort() {
     if (!this.isSorted) {
       const val = this.sorter.next()
@@ -78,6 +108,11 @@ export default class MergeSort extends List {
     }
   }
 
+  /**
+   * Highlights key points of algorithm on given sketch
+   * 
+   * @param {p5} sketch The p5 sketch
+   */
   highlight(sketch) {
     if (this.isSorted) return
 

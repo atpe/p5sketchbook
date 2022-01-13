@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: sketches/sortingAlgorithms/main.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,138 +17,90 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: sketches/sortingAlgorithms/main.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @module sortingAlgorithms
+ * @author Adam Evans
+ */
 
+// MUI component imports
+import CardActions from '@mui/material/CardActions'
+import Button from '@mui/material/Button'
+// Local component imports
+import List from './list'
 
-    <h3> </h3>
+/**
+ * Render sketch
+ * 
+ * @default
+ * @returns {React.Component} Sketch component
+ */
+export function sortingActions(actions) {
+  return (
+    &lt;CardActions>
+      &lt;Button onClick={actions.start}>Start&lt;/Button>
+      &lt;Button onClick={actions.pause}>Pause&lt;/Button>
+      &lt;Button onClick={actions.reset}>Reset&lt;/Button>
+    &lt;/CardActions >
+  )
+}
 
+/** 
+ * Main sorting algorithm sketch function
+ * 
+ * @param {Object} sketch The p5.js sketch function for sorting algorithms
+ * @param {List} list The list to be sorted by the sketch
+ */
+export function sortingSketch(sketch, list) {
+  /**
+   * Resets the sketch
+   * 
+   * @param {Function} sketch The p5.js sketch function for sorting algorithms
+   * @param {List} list The list to be sorted by the sketch 
+   */
+  function reset(sketch, list) {
+    list.reset()
+    sketch.redraw()
+  }
 
+  /**
+   * Sets up the sketch
+   * 
+   * @param {Function} sketch The p5.js sketch function for sorting algorithms
+   * @param {List} list The list to be sorted by the sketch 
+   */
+  function setup(sketch, list) {
+    sketch.createCanvas(list.width, list.height)
+    sketch.noLoop()
+    sketch.frameRate(10)
+  }
 
-
-
-
-
-
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-<section>
-
-<header>
-    
-        <h2>index.js</h2>
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-            <div class="description">Main entry point for SketchBook app.</div>
-        
-
-        
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-author">Author:</dt>
-    <dd class="tag-author">
-        <ul>
-            <li>Adam Evans</li>
-        </ul>
-    </dd>
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line1">line 1</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-        
-    
-    </div>
-
-    
-
-    
-        <h3 class="subsection-title">Requires</h3>
-
-        <ul>
-            <li><a href="module-App.html">module:App</a></li>
-        </ul>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+  /**
+   * Draws the sketch
+   * 
+   * @param {Function} sketch The p5.js sketch function for sorting algorithms
+   * @param {List} list The list to be sorted by the sketch 
+   */
+  function draw(sketch, list) {
+    sketch.background(120)
+    if (sketch.isLooping()) list.sort()
+    list.draw(sketch)
+    list.highlight(sketch)
+  }
+  sketch.reset = () => reset(sketch, list)
+  sketch.setup = () => setup(sketch, list)
+  sketch.draw = () => draw(sketch, list)
+}</code></pre>
+        </article>
+    </section>
 
 
 

@@ -1,3 +1,8 @@
+/**
+ * @module Home
+ * @author Adam Evans
+ */
+
 // React imports
 import React from 'react'
 // React-Router-Dom imports
@@ -11,8 +16,13 @@ import ListSubheader from '@mui/material/ListSubheader'
 import ListItemButton from '@mui/material/ListItemButton'
 import ListItemText from '@mui/material/ListItemText'
 
+/**
+ * Render homepage
+ * 
+ * @default
+ * @returns {React.Component} Homepage component
+ */
 export default function Home() {
-
   return (
     <Card>
       <CardHeader title='Sketches' />

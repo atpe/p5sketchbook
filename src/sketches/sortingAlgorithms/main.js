@@ -1,6 +1,20 @@
+/**
+ * @module sortingAlgorithms
+ * @author Adam Evans
+ */
+
+// MUI component imports
 import CardActions from '@mui/material/CardActions'
 import Button from '@mui/material/Button'
+// Local component imports
+import List from './list'
 
+/**
+ * Render sketch
+ * 
+ * @default
+ * @returns {React.Component} Sketch component
+ */
 export function sortingActions(actions) {
   return (
     <CardActions>
@@ -11,27 +25,49 @@ export function sortingActions(actions) {
   )
 }
 
-/** Main sorting sketch function
- *  @param {Object} sketch The p5.js sketch function
+/** 
+ * Main sorting algorithm sketch function
+ * 
+ * @param {Object} sketch The p5.js sketch function for sorting algorithms
+ * @param {List} list The list to be sorted by the sketch
  */
 export function sortingSketch(sketch, list) {
-  sketch.reset = () => {
+  /**
+   * Resets the sketch
+   * 
+   * @param {Function} sketch The p5.js sketch function for sorting algorithms
+   * @param {List} list The list to be sorted by the sketch 
+   */
+  function reset(sketch, list) {
     list.reset()
     sketch.redraw()
   }
 
-  /** Setup function invoked by p5 */
-  sketch.setup = () => {
+  /**
+   * Sets up the sketch
+   * 
+   * @param {Function} sketch The p5.js sketch function for sorting algorithms
+   * @param {List} list The list to be sorted by the sketch 
+   */
+  function setup(sketch, list) {
     sketch.createCanvas(list.width, list.height)
     sketch.noLoop()
     sketch.frameRate(10)
   }
 
-  /** Draw function invoked by p5 */
-  sketch.draw = () => {
+  /**
+   * Draws the sketch
+   * 
+   * @param {Function} sketch The p5.js sketch function for sorting algorithms
+   * @param {List} list The list to be sorted by the sketch 
+   */
+  function draw(sketch, list) {
     sketch.background(120)
     if (sketch.isLooping()) list.sort()
     list.draw(sketch)
     list.highlight(sketch)
   }
+  sketch.reset = () => reset(sketch, list)
+  sketch.setup = () => setup(sketch, list)
+  sketch.draw = () => draw(sketch, list)
 }

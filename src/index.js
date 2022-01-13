@@ -1,21 +1,28 @@
 /**
- * SketchBook
- * @namespace SketchBook
+ * Index.js
+ * 
+ * @file Main entry point for SketchBook app.
  * @author Adam Evans
- * @version 0.0.1
+ * 
+ * @requires module:App
  */
 
-
+// React imports
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { store } from './app/store'
-import { BrowserRouter } from 'react-router-dom'
-import { createTheme, ThemeProvider } from '@mui/material/styles'
-import App from './App'
-import { Provider } from 'react-redux'
 import * as serviceWorker from './serviceWorker'
+// React-router imports
+import { BrowserRouter } from 'react-router-dom'
+// React redux imports
+import { Provider } from 'react-redux'
+// MUI imports
+import { createTheme, ThemeProvider } from '@mui/material/styles'
+// Local imports
+import { store } from './app/store'
 import './index.css'
+import App from './App'
 
+// Theme object to be used by theme provider
 const theme = createTheme({
   palette: {
     primary: {
@@ -33,6 +40,7 @@ const theme = createTheme({
   },
 });
 
+// Main render function
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>

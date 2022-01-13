@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: home/Home.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,138 +17,70 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: home/Home.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @module Home
+ * @author Adam Evans
+ */
 
+// React imports
+import React from 'react'
+// React-Router-Dom imports
+import { Link } from 'react-router-dom'
+// Mui component imports
+import Card from '@mui/material/Card'
+import CardHeader from '@mui/material/CardHeader'
+import CardContent from '@mui/material/CardContent'
+import List from '@mui/material/List'
+import ListSubheader from '@mui/material/ListSubheader'
+import ListItemButton from '@mui/material/ListItemButton'
+import ListItemText from '@mui/material/ListItemText'
 
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-<section>
-
-<header>
-    
-        <h2>index.js</h2>
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-            <div class="description">Main entry point for SketchBook app.</div>
-        
-
-        
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-author">Author:</dt>
-    <dd class="tag-author">
-        <ul>
-            <li>Adam Evans</li>
-        </ul>
-    </dd>
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line1">line 1</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-        
-    
-    </div>
-
-    
-
-    
-        <h3 class="subsection-title">Requires</h3>
-
-        <ul>
-            <li><a href="module-App.html">module:App</a></li>
-        </ul>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+/**
+ * Render homepage
+ * 
+ * @default
+ * @returns {React.Component} Homepage component
+ */
+export default function Home() {
+  return (
+    &lt;Card>
+      &lt;CardHeader title='Sketches' />
+      &lt;CardContent component={List}>
+        &lt;ListSubheader>Sorting Algorithms&lt;/ListSubheader>
+        &lt;ListItemButton component={Link} to='/sorting-algorithms/selection-sort'>
+          &lt;ListItemText primary='Selection Sort' />
+        &lt;/ListItemButton>
+        &lt;ListItemButton component={Link} to='/sorting-algorithms/insertion-sort'>
+          &lt;ListItemText primary='Insertion Sort' />
+        &lt;/ListItemButton>
+        &lt;ListItemButton component={Link} to='/sorting-algorithms/bubble-sort'>
+          &lt;ListItemText primary='Bubble Sort' />
+        &lt;/ListItemButton>
+        &lt;ListItemButton component={Link} to='/sorting-algorithms/merge-sort'>
+          &lt;ListItemText primary='Merge Sort' />
+        &lt;/ListItemButton>
+        &lt;ListItemButton component={Link} to='/sorting-algorithms/heap-sort'>
+          &lt;ListItemText primary='Heap Sort' />
+        &lt;/ListItemButton>
+        &lt;ListSubheader>Ray Casting&lt;/ListSubheader>
+        &lt;ListItemButton component={Link} to='/ray-casting/2d'>
+          &lt;ListItemText primary='2D Ray Casting' />
+        &lt;/ListItemButton>
+      &lt;/CardContent >
+    &lt;/Card>
+  )
+}</code></pre>
+        </article>
+    </section>
 
 
 

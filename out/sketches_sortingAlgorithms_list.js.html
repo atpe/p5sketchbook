@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: sketches/sortingAlgorithms/list.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,138 +17,90 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: sketches/sortingAlgorithms/list.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @module List
+ * @author Adam Evans
+ */
 
+export default class List {
+  /**
+   * @static Number of items in list
+   */
+  static max = 64
 
-    <h3> </h3>
+  /**
+   * Creates a list
+   * 
+   * @param {Number} width Width of the canvas
+   * @param {Number} height Height of the canvas
+   */
+  constructor(width, height) {
+    this.width = width
+    this.height = height
+    this.spacing = this.width / List.max
+    this.items = []
 
+    this.init()
+    this.shuffle()
+  }
 
+  /**
+   * Iterates over list objects and executes the given callback
+   * @param {Function} callback 
+   */
+  iterate(callback) {
+    for (let x = 0; x &lt; List.max; x++) callback(x)
+  }
 
+  /** Creates list items */
+  init() {
+    this.iterate(x => {
+      // Map x coordinate to height
+      const y = x / List.max * this.height
+      // Add to item array
+      this.items[x] = y
+    })
+  }
 
+  /** Shuffles list items */
+  shuffle() {
+    const items = []
+    this.iterate(x => {
+      const i = Math.floor(Math.random() * this.items.length)
+      items.push(this.items[i])
+      this.items.splice(i, 1)
+    })
+    this.items = items
+  }
 
-
-
-
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-<section>
-
-<header>
-    
-        <h2>index.js</h2>
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-            <div class="description">Main entry point for SketchBook app.</div>
-        
-
-        
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-author">Author:</dt>
-    <dd class="tag-author">
-        <ul>
-            <li>Adam Evans</li>
-        </ul>
-    </dd>
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line1">line 1</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-        
-    
-    </div>
-
-    
-
-    
-        <h3 class="subsection-title">Requires</h3>
-
-        <ul>
-            <li><a href="module-App.html">module:App</a></li>
-        </ul>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+  /**
+   * Draws the list to the given sketch
+   * 
+   * @param {p5} sketch The p5 sketch
+   */
+  draw(sketch) {
+    sketch.push()
+    this.iterate(x => {
+      const _y = this.items[x]
+      const _x = x * this.spacing
+      sketch.noStroke()
+      sketch.fill([237, 34, 100, 55 + (_y / this.height) * 200])
+      sketch.rect(_x, this.height - _y, this.spacing, _y)
+    })
+    sketch.pop()
+  }
+}</code></pre>
+        </article>
+    </section>
 
 
 

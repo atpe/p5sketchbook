@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: App.js</title>
+    <title>JSDoc: Source: sketches/rayCasting/components/world.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: App.js</h1>
+    <h1 class="page-title">Source: sketches/rayCasting/components/world.js</h1>
 
     
 
@@ -27,76 +27,98 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * @module App
+ * @module World
  * @author Adam Evans
  */
 
-// React imports
-import React from 'react'
-// React-Router-Dom imports
-import { Routes, Route } from 'react-router-dom'
-import { useTheme } from '@emotion/react'
-// MUI component imports
-import Box from '@mui/material/Box'
+// P5 library imports
+import { Vector } from "p5"
 // Local component imports
-import NavBar from './navBar/NavBar'
-import Home from './home/Home'
-import Sketch from './sketches/Sketch'
+import Box from "./box"
+import Caster from "./caster"
 
-/**
- * @param {Theme} theme Mui theme passed to theme provider
- * @returns {Number} The height of the window minus the app bar
- */
-function getViewHeight(theme) {
-  const toolbar = theme.mixins.toolbar
-  const { innerWidth, innerHeight } = window
+export default class World extends Box {
+  /**
+   * Creates a new world
+   * 
+   * @param {Vector} center Center point of world
+   * @param {*} size Size of world
+   */
+  constructor(center, size) {
+    const mag = size.mag()
+    const borderWeight = mag / 150
+    super(center, size, borderWeight)
 
-  // Get height of navbar from theme
-  let navBarHeight = toolbar.minHeight
-  if (innerWidth > theme.breakpoints.up('sm')) {
-    const key = `${theme.breakpoints.up('sm')}`
-    navBarHeight = toolbar[key].minHeight
-  } else if (innerWidth &lt; innerHeight) {
-    const key = `${theme.breakpoints.up('xs')} and (orientation: landscape)`
-    navBarHeight = toolbar[key].minHeight
+    const casterSize = mag / 100
+    const viewDistance = mag / 4
+    this.caster = new Caster(center, casterSize, viewDistance)
+
+    this.obstacles = []
   }
 
-  const padding = 48
+  get boxes() {
+    return [this, ...this.obstacles]
+  }
 
-  // Return the height of remaining space
-  return innerHeight - navBarHeight - padding
-}
+  /** Resets the world to its original state */
+  reset() {
+    this.obstacles = []
+    this.caster.reposition(this.position)
+  }
 
-/**
- * Render app
- * 
- * @default
- * @returns {React.Component} App component
- */
-export default function App() {
-  const theme = useTheme()
-  return (
-    &lt;>
-      &lt;NavBar />
-      &lt;Box sx={{ display: 'flex', flexDirection: 'column', p: '16px', height: getViewHeight(theme) }} >
-        &lt;Routes>
-          &lt;Route exact path='/' element={&lt;Home />} />
-          &lt;Route path='/'>
-            &lt;Route path='sorting-algorithms'>
-              &lt;Route path='selection-sort' element={&lt;Sketch sketch='selectionSort' />} />
-              &lt;Route path='insertion-sort' element={&lt;Sketch sketch='insertionSort' />} />
-              &lt;Route path='bubble-sort' element={&lt;Sketch sketch='bubbleSort' />} />
-              &lt;Route path='merge-sort' element={&lt;Sketch sketch='mergeSort' />} />
-              &lt;Route path='heap-sort' element={&lt;Sketch sketch='heapSort' />} />
-            &lt;/Route>
-            &lt;Route path='ray-casting'>
-              &lt;Route path='2d' element={&lt;Sketch sketch='rayCasting2d' />} />
-            &lt;/Route>
-          &lt;/Route>
-        &lt;/Routes>
-      &lt;/Box>
-    &lt;/>
-  )
+  /**
+   * Adds a new obstacle to the world
+   * 
+   * @param {Vector} position Postion at which to insert obstacle
+   */
+  addObstacle(position) {
+    const augX = (Math.random() + 1) * 10
+    const augY = (Math.random() + 1) * 10
+    const size = Vector.div(this.size, [augX, augY])
+    const box = new Box(position, size, 0, this)
+    if (!box.contains(this.caster)) this.obstacles.push(box)
+  }
+
+  /**
+   * Calculates whether object is wholly within world bounds
+   * 
+   * @param {Object} object Either a vector or an object with position and size properties
+   * @returns {Boolean} True if object is wholly within world bounds
+   */
+  contains(object) {
+    const radius = (object.size ? object.size / 2 : 0) + this.weight / 2
+    const { x, y } = object.position ? object.position : object
+    const isWithinX = x - radius > this.sides.l &amp;&amp; x + radius &lt; this.sides.r
+    const isWithinY = y - radius > this.sides.t &amp;&amp; y + radius &lt; this.sides.b
+    return isWithinX &amp;&amp; isWithinY
+  }
+
+  /**
+   * Updates world and its contents
+   * 
+   * @param {p5} sketch The p5.js sketch
+   */
+  update(sketch) {
+    this.caster.move(sketch)
+    this.caster.cast(sketch)
+    this.caster.draw(sketch)
+    for (const obstacle of this.obstacles) obstacle.draw(sketch)
+    this.draw(sketch)
+  }
+
+  /**
+   * Draws the world to the given sketch
+   * 
+   * @param {p5} sketch The p5.js sketch
+   */
+  draw(sketch) {
+    sketch.push()
+    sketch.noFill()
+    sketch.strokeWeight(this.weight)
+    const { x, y } = this.position
+    sketch.rect(x, y, this.size.x, this.size.y)
+    sketch.pop()
+  }
 }</code></pre>
         </article>
     </section>

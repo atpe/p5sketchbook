@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: sketches/sortingAlgorithms/algorithms/bubbleSort.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,138 +17,91 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: sketches/sortingAlgorithms/algorithms/bubbleSort.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @module BubbleSort
+ * @author Adam Evans
+ */
 
+// Local component imports
+import List from '../list'
 
-    <h3> </h3>
+export default class BubbleSort extends List {
+  /**
+   * Creates a list with bubble sort capability
+   * 
+   * @param {React.RefObject} sketchRef Element in which sketch is rendered
+   */
+  constructor(sketchRef) {
+    const { clientWidth, clientHeight } = sketchRef.current
+    super(clientWidth, clientHeight)
+    this.i = 1
+    this.j = 0
+    this.isSorted = false
+  }
 
+  /** Resets algorithm and reshuffles items */
+  reset() {
+    this.i = 1
+    this.j = 0
+    this.isSorted = false
+    this.shuffle()
+  }
 
+  /** Checks if algorithm is complete */
+  check() {
+    for (let i = 1; i &lt; List.max; i++) {
+      if (this.items[i] &lt; this.items[i - 1]) return false
+    }
+    return true
+  }
 
+  /** Sorts items by bubble sort */
+  sort() {
+    // Iterating over width
+    if (!this.isSorted &amp;&amp; this.i &lt; List.max) {
+      // Check if current index is less than previous index
+      if (this.items[this.i] &lt; this.items[this.j]) {
+        // Swap previous index with current index
+        [this.items[this.i], this.items[this.j]] = [this.items[this.j], this.items[this.i]]
+      }
+      // Move to next pair
+      this.i++
+      this.j++
+    } else {
+      // Return to start if not sorted
+      this.isSorted = this.check()
+      this.i = 1
+      this.j = 0
+    }
+  }
 
-
-
-
-
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-<section>
-
-<header>
-    
-        <h2>index.js</h2>
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-            <div class="description">Main entry point for SketchBook app.</div>
-        
-
-        
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-author">Author:</dt>
-    <dd class="tag-author">
-        <ul>
-            <li>Adam Evans</li>
-        </ul>
-    </dd>
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="index.js.html">index.js</a>, <a href="index.js.html#line1">line 1</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-        
-    
-    </div>
-
-    
-
-    
-        <h3 class="subsection-title">Requires</h3>
-
-        <ul>
-            <li><a href="module-App.html">module:App</a></li>
-        </ul>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+  /** 
+   * Highlights key points of algorithm on given sketch
+   * 
+   * @param {p5} sketch The p5 sketch
+   */
+  highlight(sketch) {
+    if (this.isSorted) return
+    sketch.push()
+    sketch.strokeWeight(2)
+    sketch.stroke([255, 100, 100, 100])
+    sketch.line(this.i * this.spacing, 0, this.i * this.spacing, this.height)
+    sketch.stroke([100, 100, 255, 100])
+    sketch.line(this.j * this.spacing, 0, this.j * this.spacing, this.height)
+    sketch.pop()
+  }
+}</code></pre>
+        </article>
+    </section>
 
 
 

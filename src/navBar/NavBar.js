@@ -1,3 +1,8 @@
+/**
+ * @module NavBar
+ * @author Adam Evans
+ */
+
 // React imports
 import React from 'react'
 // React-Router-Dom imports
@@ -8,9 +13,13 @@ import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
 import Avatar from '@mui/material/Avatar'
-// Mui icon imports
 
-
+/**
+ * Render navbar
+ * 
+ * @default
+ * @returns {React.Component} NavBar component
+ */
 export default function NavBar() {
   return (
     <AppBar position='static'>

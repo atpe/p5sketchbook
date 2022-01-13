@@ -1,7 +1,17 @@
-import List from '../list'
+/**
+ * @module SelectionSort
+ * @author Adam Evans
+ */
+
+// Local component importsimport List from '../list'
 
 // Does not assume unique and/or linear array
 export default class SelectionSort extends List {
+  /**
+   * Creates a list with heap sort capability
+   * 
+   * @param {React.RefObject} sketchRef Element in which sketch is rendered
+   */
   constructor(sketchRef) {
     const { clientWidth, clientHeight } = sketchRef.current
     super(clientWidth, clientHeight)
@@ -10,12 +20,14 @@ export default class SelectionSort extends List {
     this._i = 0
   }
 
+  /** Resets algorithm and reshuffles items */
   reset() {
     this.i = 0
     this.j = 0
     this.shuffle()
   }
 
+  /** Sorts items by selection sort */
   sort() {
     // Iterating over width
     if (this.i < List.max) {
@@ -45,6 +57,11 @@ export default class SelectionSort extends List {
     }
   }
 
+  /**
+   * Highlights key points of algorithm on given sketch
+   * 
+   * @param {p5} sketch The p5 sketch
+   */
   highlight(sketch) {
     if (this.i === List.max) return
     sketch.push()

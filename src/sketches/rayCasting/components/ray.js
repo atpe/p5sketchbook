@@ -1,8 +1,21 @@
-import { Vector } from "p5"
+/**
+ * @module Ray
+ * @author Adam Evans
+ */
 
+// P5 library imports
+import { Vector } from "p5"
+// Local component imports
 import Caster from "./caster"
 
 export default class Ray {
+  /**
+   * Creates a ray
+   * 
+   * @param {Vector} start Start point of ray
+   * @param {Number} angle Angle offset of ray
+   * @param {Number} length Maximum length of ray
+   */
   constructor(start, angle, length) {
     this.start = start
     this.angle = angle
@@ -22,11 +35,17 @@ export default class Ray {
     return { x1: this.start.x, y1: this.start.y, x2: this.end.x, y2: this.end.y }
   }
 
+  /**
+   * Updates the ray's start point to given position
+   * 
+   * @param {Vector} position New postion for ray start point
+   */
   reposition(position) {
     this.start = position
     this.maxEnd = Vector.add(this.start, Vector.fromAngle(this.angle, this.maxLength))
   }
 
+  /** Resets ray to initial state */
   reset() {
     if (this.intersectedEnd) {
       this.intersectedEnd = undefined
@@ -34,6 +53,13 @@ export default class Ray {
     }
   }
 
+  /**
+   * Calculates intersection point (if any) of ray with given boundary points
+   * @param {Number} x3 X coordinate of boundary start
+   * @param {Number} y3 Y coordinate of boundary start
+   * @param {Number} x4 X coordinate of boundary end
+   * @param {Number} y4 Y coordinate of boundary end
+   */
   calcIntersection(x3, y3, x4, y4) {
     const { x1, y1, x2, y2 } = this.points
 
@@ -49,12 +75,14 @@ export default class Ray {
     if (t >= 0 && t <= 1 && u >= 0 && u <= 1) {
       this.intersectedEnd = new Vector(x1 + t * (x2 - x1), y1 + t * (y2 - y1))
       this.intersectedLength = this.start.dist(this.end)
-      return true
-    } else {
-      return false
     }
   }
 
+  /**
+   * Draws the ray to the given sketch
+   * 
+   * @param {p5} sketch The p5.js sketch
+   */
   draw(sketch) {
     const { x1, y1, x2, y2 } = this.points
     sketch.push()

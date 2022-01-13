@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: App.js</title>
+    <title>JSDoc: Source: sketches/rayCasting/main.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: App.js</h1>
+    <h1 class="page-title">Source: sketches/rayCasting/main.js</h1>
 
     
 
@@ -27,76 +27,97 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * @module App
+ * @module RayCasting
  * @author Adam Evans
  */
 
-// React imports
-import React from 'react'
-// React-Router-Dom imports
-import { Routes, Route } from 'react-router-dom'
-import { useTheme } from '@emotion/react'
-// MUI component imports
-import Box from '@mui/material/Box'
+// Mui component imports
+import CardContent from '@mui/material/CardContent'
+import CardActions from '@mui/material/CardActions'
+import Typography from '@mui/material/Typography'
+import Button from '@mui/material/Button'
+
 // Local component imports
-import NavBar from './navBar/NavBar'
-import Home from './home/Home'
-import Sketch from './sketches/Sketch'
+import World from './components/world'
 
-/**
- * @param {Theme} theme Mui theme passed to theme provider
- * @returns {Number} The height of the window minus the app bar
- */
-function getViewHeight(theme) {
-  const toolbar = theme.mixins.toolbar
-  const { innerWidth, innerHeight } = window
+const obstacleLimit = 100
 
-  // Get height of navbar from theme
-  let navBarHeight = toolbar.minHeight
-  if (innerWidth > theme.breakpoints.up('sm')) {
-    const key = `${theme.breakpoints.up('sm')}`
-    navBarHeight = toolbar[key].minHeight
-  } else if (innerWidth &lt; innerHeight) {
-    const key = `${theme.breakpoints.up('xs')} and (orientation: landscape)`
-    navBarHeight = toolbar[key].minHeight
-  }
-
-  const padding = 48
-
-  // Return the height of remaining space
-  return innerHeight - navBarHeight - padding
-}
-
-/**
- * Render app
- * 
- * @default
- * @returns {React.Component} App component
- */
-export default function App() {
-  const theme = useTheme()
+export function rayCastingActions(actions) {
   return (
     &lt;>
-      &lt;NavBar />
-      &lt;Box sx={{ display: 'flex', flexDirection: 'column', p: '16px', height: getViewHeight(theme) }} >
-        &lt;Routes>
-          &lt;Route exact path='/' element={&lt;Home />} />
-          &lt;Route path='/'>
-            &lt;Route path='sorting-algorithms'>
-              &lt;Route path='selection-sort' element={&lt;Sketch sketch='selectionSort' />} />
-              &lt;Route path='insertion-sort' element={&lt;Sketch sketch='insertionSort' />} />
-              &lt;Route path='bubble-sort' element={&lt;Sketch sketch='bubbleSort' />} />
-              &lt;Route path='merge-sort' element={&lt;Sketch sketch='mergeSort' />} />
-              &lt;Route path='heap-sort' element={&lt;Sketch sketch='heapSort' />} />
-            &lt;/Route>
-            &lt;Route path='ray-casting'>
-              &lt;Route path='2d' element={&lt;Sketch sketch='rayCasting2d' />} />
-            &lt;/Route>
-          &lt;/Route>
-        &lt;/Routes>
-      &lt;/Box>
+      &lt;CardContent>
+        &lt;Typography>
+          Use the W, A, S, and D keys to move the caster around to see how its rays interact with the boundaries.
+        &lt;/Typography>
+        &lt;Typography>
+          Click the mouse to insert an obstacle. (Limited to {obstacleLimit}).
+        &lt;/Typography>
+      &lt;/CardContent>
+      &lt;CardActions>
+        &lt;Button onClick={(e) => { actions.reset(); e.preventDefault() }}>Reset&lt;/Button>
+      &lt;/CardActions >
     &lt;/>
   )
+}
+
+/** Main rayCasting sketch function
+ *  @param {Function} sketch The p5.js sketch function
+ *  @param {React.RefObject} sketch The p5.js sketch function
+ */
+export function rayCastingSketch(sketch, sketchRef) {
+  const { clientWidth, clientHeight } = sketchRef.current
+
+  /**
+   * Resets the sketch
+   * 
+   * @param {Function} sketch The p5.js sketch function
+   */
+  function reset(sketch) {
+    sketch.world.reset()
+  }
+
+  /**
+   * Sets up the sketch
+   * 
+   * @param {Function} sketch The p5.js sketch function
+   */
+  function setup(sketch) {
+    sketch.createCanvas(clientWidth, clientHeight)
+    sketch.frameRate(60)
+    sketch.rectMode(sketch.CENTER)
+
+    const center = sketch.createVector(clientWidth / 2, clientHeight / 2)
+    const size = sketch.createVector(clientWidth, clientHeight)
+
+    sketch.world = new World(center, size)
+  }
+
+  /**
+   * Is called when mouse is pressed
+   * 
+   * @param {Function} sketch The p5.js sketch function
+   */
+  function mousePressed(sketch) {
+    const position = sketch.createVector(sketch.mouseX, sketch.mouseY)
+    if (sketch.world.contains(position) &amp;&amp; sketch.world.obstacles.length &lt;= obstacleLimit) {
+      sketch.world.addObstacle(position)
+    }
+  }
+
+  /**
+   * Draws the sketch
+   * 
+   * @param {Function} sketch The p5.js sketch function
+   */
+  function draw(sketch) {
+    sketch.background(120)
+    sketch.world.update(sketch)
+  }
+
+  sketch.reset = () => reset(sketch, list)
+  sketch.setup = () => setup(sketch, list)
+  sketch.mousePressed = () => mousePressed(sketch)
+  sketch.draw = () => draw(sketch, list)
 }</code></pre>
         </article>
     </section>

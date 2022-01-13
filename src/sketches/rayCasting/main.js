@@ -1,9 +1,15 @@
+/**
+ * @module RayCasting
+ * @author Adam Evans
+ */
+
+// Mui component imports
 import CardContent from '@mui/material/CardContent'
 import CardActions from '@mui/material/CardActions'
 import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
-import Caster from './components/caster'
-import Box from './components/box'
+
+// Local component imports
 import World from './components/world'
 
 const obstacleLimit = 100
@@ -27,17 +33,27 @@ export function rayCastingActions(actions) {
 }
 
 /** Main rayCasting sketch function
- *  @param {Object} sketch The p5.js sketch function
+ *  @param {Function} sketch The p5.js sketch function
+ *  @param {React.RefObject} sketch The p5.js sketch function
  */
 export function rayCastingSketch(sketch, sketchRef) {
   const { clientWidth, clientHeight } = sketchRef.current
 
-  sketch.reset = () => {
+  /**
+   * Resets the sketch
+   * 
+   * @param {Function} sketch The p5.js sketch function
+   */
+  function reset(sketch) {
     sketch.world.reset()
   }
 
-  /** Setup function invoked by p5 */
-  sketch.setup = () => {
+  /**
+   * Sets up the sketch
+   * 
+   * @param {Function} sketch The p5.js sketch function
+   */
+  function setup(sketch) {
     sketch.createCanvas(clientWidth, clientHeight)
     sketch.frameRate(60)
     sketch.rectMode(sketch.CENTER)
@@ -48,17 +64,30 @@ export function rayCastingSketch(sketch, sketchRef) {
     sketch.world = new World(center, size)
   }
 
-  sketch.mousePressed = () => {
+  /**
+   * Is called when mouse is pressed
+   * 
+   * @param {Function} sketch The p5.js sketch function
+   */
+  function mousePressed(sketch) {
     const position = sketch.createVector(sketch.mouseX, sketch.mouseY)
     if (sketch.world.contains(position) && sketch.world.obstacles.length <= obstacleLimit) {
       sketch.world.addObstacle(position)
     }
   }
 
-  /** Draw function invoked by p5 */
-  sketch.draw = () => {
+  /**
+   * Draws the sketch
+   * 
+   * @param {Function} sketch The p5.js sketch function
+   */
+  function draw(sketch) {
     sketch.background(120)
-
     sketch.world.update(sketch)
   }
+
+  sketch.reset = () => reset(sketch, list)
+  sketch.setup = () => setup(sketch, list)
+  sketch.mousePressed = () => mousePressed(sketch)
+  sketch.draw = () => draw(sketch, list)
 }

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: App.js</title>
+    <title>JSDoc: Source: sketches/rayCasting/components/ray.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: App.js</h1>
+    <h1 class="page-title">Source: sketches/rayCasting/components/ray.js</h1>
 
     
 
@@ -27,76 +27,98 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * @module App
+ * @module Ray
  * @author Adam Evans
  */
 
-// React imports
-import React from 'react'
-// React-Router-Dom imports
-import { Routes, Route } from 'react-router-dom'
-import { useTheme } from '@emotion/react'
-// MUI component imports
-import Box from '@mui/material/Box'
+// P5 library imports
+import { Vector } from "p5"
 // Local component imports
-import NavBar from './navBar/NavBar'
-import Home from './home/Home'
-import Sketch from './sketches/Sketch'
+import Caster from "./caster"
 
-/**
- * @param {Theme} theme Mui theme passed to theme provider
- * @returns {Number} The height of the window minus the app bar
- */
-function getViewHeight(theme) {
-  const toolbar = theme.mixins.toolbar
-  const { innerWidth, innerHeight } = window
-
-  // Get height of navbar from theme
-  let navBarHeight = toolbar.minHeight
-  if (innerWidth > theme.breakpoints.up('sm')) {
-    const key = `${theme.breakpoints.up('sm')}`
-    navBarHeight = toolbar[key].minHeight
-  } else if (innerWidth &lt; innerHeight) {
-    const key = `${theme.breakpoints.up('xs')} and (orientation: landscape)`
-    navBarHeight = toolbar[key].minHeight
+export default class Ray {
+  /**
+   * Creates a ray
+   * 
+   * @param {Vector} start Start point of ray
+   * @param {Number} angle Angle offset of ray
+   * @param {Number} length Maximum length of ray
+   */
+  constructor(start, angle, length) {
+    this.start = start
+    this.angle = angle
+    this.maxLength = length
+    this.maxEnd = Vector.add(start, Vector.fromAngle(angle, length))
   }
 
-  const padding = 48
+  get end() {
+    return this.intersectedEnd || this.maxEnd
+  }
 
-  // Return the height of remaining space
-  return innerHeight - navBarHeight - padding
-}
+  get length() {
+    return this.intersectedLength || this.maxLength
+  }
 
-/**
- * Render app
- * 
- * @default
- * @returns {React.Component} App component
- */
-export default function App() {
-  const theme = useTheme()
-  return (
-    &lt;>
-      &lt;NavBar />
-      &lt;Box sx={{ display: 'flex', flexDirection: 'column', p: '16px', height: getViewHeight(theme) }} >
-        &lt;Routes>
-          &lt;Route exact path='/' element={&lt;Home />} />
-          &lt;Route path='/'>
-            &lt;Route path='sorting-algorithms'>
-              &lt;Route path='selection-sort' element={&lt;Sketch sketch='selectionSort' />} />
-              &lt;Route path='insertion-sort' element={&lt;Sketch sketch='insertionSort' />} />
-              &lt;Route path='bubble-sort' element={&lt;Sketch sketch='bubbleSort' />} />
-              &lt;Route path='merge-sort' element={&lt;Sketch sketch='mergeSort' />} />
-              &lt;Route path='heap-sort' element={&lt;Sketch sketch='heapSort' />} />
-            &lt;/Route>
-            &lt;Route path='ray-casting'>
-              &lt;Route path='2d' element={&lt;Sketch sketch='rayCasting2d' />} />
-            &lt;/Route>
-          &lt;/Route>
-        &lt;/Routes>
-      &lt;/Box>
-    &lt;/>
-  )
+  get points() {
+    return { x1: this.start.x, y1: this.start.y, x2: this.end.x, y2: this.end.y }
+  }
+
+  /**
+   * Updates the ray's start point to given position
+   * 
+   * @param {Vector} position New postion for ray start point
+   */
+  reposition(position) {
+    this.start = position
+    this.maxEnd = Vector.add(this.start, Vector.fromAngle(this.angle, this.maxLength))
+  }
+
+  /** Resets ray to initial state */
+  reset() {
+    if (this.intersectedEnd) {
+      this.intersectedEnd = undefined
+      this.intersectedLength = undefined
+    }
+  }
+
+  /**
+   * Calculates intersection point (if any) of ray with given boundary points
+   * @param {Number} x3 X coordinate of boundary start
+   * @param {Number} y3 Y coordinate of boundary start
+   * @param {Number} x4 X coordinate of boundary end
+   * @param {Number} y4 Y coordinate of boundary end
+   */
+  calcIntersection(x3, y3, x4, y4) {
+    const { x1, y1, x2, y2 } = this.points
+
+    const tNum = (x1 - x3) * (y3 - y4) - (y1 - y3) * (x3 - x4)
+    const uNum = (x1 - x3) * (y1 - y2) - (y1 - y3) * (x1 - x2)
+    const den = (x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4)
+
+    if (den === 0) return false
+
+    const t = tNum / den
+    const u = uNum / den
+
+    if (t >= 0 &amp;&amp; t &lt;= 1 &amp;&amp; u >= 0 &amp;&amp; u &lt;= 1) {
+      this.intersectedEnd = new Vector(x1 + t * (x2 - x1), y1 + t * (y2 - y1))
+      this.intersectedLength = this.start.dist(this.end)
+    }
+  }
+
+  /**
+   * Draws the ray to the given sketch
+   * 
+   * @param {p5} sketch The p5.js sketch
+   */
+  draw(sketch) {
+    const { x1, y1, x2, y2 } = this.points
+    sketch.push()
+    sketch.noStroke()
+    sketch.fill(255, 50)
+    sketch.arc(x1, y1, this.length * 2, this.length * 2, this.angle - Caster.maxAngle / 2, this.angle + Caster.maxAngle / 2)
+    sketch.pop()
+  }
 }</code></pre>
         </article>
     </section>
