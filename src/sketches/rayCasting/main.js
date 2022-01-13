@@ -16,7 +16,7 @@ export function rayCastingActions(actions) {
           Use the W, A, S, and D keys to move the caster around to see how its rays interact with the boundaries.
         </Typography>
         <Typography>
-          Click the mouse to insert an obstacle. (Number of obtacles is limited to {obstacleLimit}).
+          Click the mouse to insert an obstacle. (Limited to {obstacleLimit}).
         </Typography>
       </CardContent>
       <CardActions>
@@ -33,8 +33,7 @@ export function rayCastingSketch(sketch, sketchRef) {
   const { clientWidth, clientHeight } = sketchRef.current
 
   sketch.reset = () => {
-    // sketch.boxes = [sketch.boxes[0]]
-    // sketch.caster.reset(sketch.createVector(clientWidth / 2, clientHeight / 2))
+    sketch.world.reset()
   }
 
   /** Setup function invoked by p5 */
@@ -61,6 +60,5 @@ export function rayCastingSketch(sketch, sketchRef) {
     sketch.background(120)
 
     sketch.world.update(sketch)
-    sketch.world.render(sketch)
   }
 }

@@ -20,6 +20,11 @@ export default class World extends Box {
     return [this, ...this.obstacles]
   }
 
+  reset() {
+    this.obstacles = []
+    this.caster.reset(this.position)
+  }
+
   addObstacle(position) {
     const augX = (Math.random() + 1) * 10
     const augY = (Math.random() + 1) * 10
@@ -39,11 +44,17 @@ export default class World extends Box {
   update(sketch) {
     this.caster.move(sketch)
     this.caster.cast(sketch)
-  }
-
-  render(sketch) {
     this.caster.draw(sketch)
     for (const obstacle of this.obstacles) obstacle.draw(sketch)
     this.draw(sketch)
+  }
+
+  draw(sketch) {
+    sketch.push()
+    sketch.noFill()
+    sketch.strokeWeight(this.weight)
+    const { x, y } = this.position
+    sketch.rect(x, y, this.size.x, this.size.y)
+    sketch.pop()
   }
 }

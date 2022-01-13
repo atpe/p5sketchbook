@@ -1,6 +1,5 @@
 import { Vector } from "p5"
 import Boundary from "./boundary"
-import Caster from "./caster"
 
 export default class Box {
   constructor(position, size, weight, boundingBox) {
@@ -12,13 +11,6 @@ export default class Box {
     this.sides = this.calcSides()
 
     if (boundingBox) this.confineWithin(boundingBox)
-
-    this.corners = this.calcCorners()
-    this.boundaries = this.calcBoundaries()
-  }
-
-  reposition(position) {
-    this.position = position
 
     this.corners = this.calcCorners()
     this.boundaries = this.calcBoundaries()
@@ -107,13 +99,8 @@ export default class Box {
 
   draw(sketch) {
     sketch.push()
-    if (this.weight > 0) {
-      sketch.noFill()
-      sketch.strokeWeight(this.weight)
-    } else {
-      sketch.noStroke()
-      sketch.fill([237, 34, 100, 100])
-    }
+    sketch.noStroke()
+    sketch.fill([237, 34, 100, 100])
     const { x, y } = this.position
     sketch.rect(x, y, this.size.x, this.size.y)
     sketch.pop()

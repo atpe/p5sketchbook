@@ -1,3 +1,11 @@
+/**
+ * SketchBook
+ * @namespace SketchBook
+ * @author Adam Evans
+ * @version 0.0.1
+ */
+
+
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { store } from './app/store'

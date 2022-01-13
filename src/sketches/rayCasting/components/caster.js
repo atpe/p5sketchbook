@@ -1,4 +1,5 @@
 import { Vector } from "p5"
+
 import Ray from "./ray"
 
 export default class Caster {
@@ -19,13 +20,13 @@ export default class Caster {
   }
 
   reset(position) {
-    this.position = position
+    this.position = position.copy()
     for (const ray of this.rays) ray.reposition(this.position)
   }
 
   cast(sketch) {
     for (const ray of this.rays) {
-      ray.clearIntersection()
+      ray.reset()
       for (const box of [sketch.world, ...sketch.world.obstacles]) {
         for (const boundary of box.boundaries) {
           const { x1, y1, x2, y2 } = boundary.points
@@ -41,38 +42,6 @@ export default class Caster {
     for (const box of world.obstacles) {
       if (box.contains(proposal)) return false
     }
-
-    // for (const boundary of boundaries) {
-    //   const { x1, y1, x2, y2 } = boundary.points
-
-    //   const dy = (y2 - y1)
-    //   const dx = (x2 - x1)
-
-    //   const { x, y } = this.position.copy().add(move)
-    //   const r = (boundary.weight + this.size) / 2
-
-    //   let dist
-    //   if (dy === 0) {
-    //     if (
-    //       (x1 < x2 && (x + r < x1 || x - r > x2)) ||
-    //       (x1 > x2 && (x - r > x1 || x + r < x2))
-    //     ) continue
-    //     dist = Math.abs(y1 - y)
-    //   } else if (dx === 0) {
-    //     if (
-    //       (y1 < y2 && (y + r < y1 || y - r > y2)) ||
-    //       (y1 > y2 && (y - r > y1 || y + r < y2))
-    //     ) continue
-    //     dist = Math.abs(x1 - x)
-    //   } else {
-    //     const m = dy / dx
-    //     const c = y1 - m * x1
-    //     dist = Math.abs(y + m * x + c) / m
-    //   }
-
-    //   if (r >= dist) return false
-    // }
-
     return true
   }
 
@@ -96,8 +65,7 @@ export default class Caster {
     }
 
     const fullMove = move.copy().setMag(Caster.maxSpeed)
-    if (this.isValidMove(fullMove, sketch.world)) move.set(fullMove)
-
+    if (this.isValidMove(fullMove, sketch.world)) move.setMag(Caster.maxSpeed)
     this.position.add(move)
 
     for (const ray of this.rays) ray.reposition(this.position)

@@ -1,4 +1,5 @@
 import { Vector } from "p5"
+
 import Caster from "./caster"
 
 export default class Ray {
@@ -26,7 +27,7 @@ export default class Ray {
     this.maxEnd = Vector.add(this.start, Vector.fromAngle(this.angle, this.maxLength))
   }
 
-  clearIntersection() {
+  reset() {
     if (this.intersectedEnd) {
       this.intersectedEnd = undefined
       this.intersectedLength = undefined
