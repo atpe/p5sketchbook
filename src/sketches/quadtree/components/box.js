@@ -91,4 +91,55 @@ export default class Box {
 
     return !(left || right || above || below)
   }
+
+  /**
+   * Moves the box based on keys pressed
+   * 
+   * @param {p5} sketch The p5.js sketch
+   */
+  move(sketch) {
+    const move = sketch.createVector()
+    if (sketch.keyIsDown(87)) { // W
+      move.add(0, -1)
+    }
+    if (sketch.keyIsDown(65)) { // A
+      move.add(-1, 0)
+    }
+    if (sketch.keyIsDown(83)) { // S
+      move.add(0, +1)
+    }
+    if (sketch.keyIsDown(68)) { // D
+      move.add(+1, 0)
+    }
+    this.position.add(move)
+
+    if (sketch.quadtree.contains(this.position)) {
+      this.quarter = this.calcQuarterSize()
+      this.sides = this.calcSides()
+    } else {
+      this.position.sub(move)
+    }
+  }
+
+  /**
+   * Draw the box to the given sketch
+   * 
+   * @param {p5} sketch The p5.js sketch
+   */
+  draw(sketch) {
+    sketch.push()
+    sketch.noStroke()
+    sketch.fill([237, 34, 100, 50])
+    let y, h
+    if (this.sides.t <= 0) {
+      y = this.position.y - this.sides.t / 2
+      h = this.size.y + this.sides.t
+    }
+    if (this.sides.b >= sketch.quadtree.size.y) {
+      y = this.position.y + (sketch.quadtree.size.y - this.sides.b) / 2
+      h = this.size.y + (sketch.quadtree.size.y - this.sides.b)
+    }
+    sketch.rect(this.position.x, y || this.position.y, this.size.x, h || this.size.y)
+    sketch.pop()
+  }
 }

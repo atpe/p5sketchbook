@@ -61,11 +61,13 @@ export default class Quadtree extends Box {
 
   /** Divides quadtree and distributes points among subtrees */
   divide() {
+    // Create a subtree for each quadrant of the area
     for (const { position, size } of this.calcQuadrants()) {
       this.subtrees.push(new Quadtree(position, size, this.capacity))
     }
 
     itemLoop:
+    // Remove all items from this quadree and distribute among subtrees
     while (this.items.length > 0) {
       const item = this.items.pop()
       for (const subtree of this.subtrees) {
@@ -78,17 +80,44 @@ export default class Quadtree extends Box {
   }
 
   /**
- * Draw the quadtree to the given sketch
- * 
- * @param {p5} sketch The p5.js sketch
- */
+   * Queries the quadtree to find all points within a given area
+   * 
+   * @param {Box} box The area to be queried
+   * @returns {Vector[]} The items found within given area
+   */
+  query(box) {
+    const _result = []
+    let _checks = 0
+    if (box.overlaps(this)) {
+      if (this.divided) {
+        for (const subtree of this.subtrees) {
+          const { result, checks } = subtree.query(box)
+          _result.push(...result)
+          _checks += checks
+        }
+      } else {
+        for (const item of this.items) {
+          if (box.contains(item)) _result.push(item)
+        }
+        _checks += this.items.length
+      }
+    }
+    return { result: _result, checks: _checks }
+  }
+
+  /**
+   * Draw the quadtree to the given sketch
+   * 
+   * @param {p5} sketch The p5.js sketch
+   */
   draw(sketch) {
     sketch.push()
     if (this.divided) {
       for (const subtree of this.subtrees) subtree.draw(sketch)
     } else {
       const { x, y } = this.position
-      sketch.stroke(0, 100)
+      sketch.strokeWeight(1)
+      sketch.stroke(100, 100)
       sketch.noFill()
       sketch.rect(x, y, this.size.x, this.size.y)
     }
