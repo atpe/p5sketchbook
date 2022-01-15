@@ -65,6 +65,9 @@ export default function App() {
               <Route path='ray-casting' element={<Sketch sketch='rayCasting' />} />
               <Route path='quadtree' element={<Sketch sketch='quadtree' />} />
             </Route>
+            <Route path='mathematical-sets'>
+              <Route path='mandlebrot-set' element={<Sketch sketch='mandlebrotSet' />} />
+            </Route>
           </Route>
         </Routes>
       </Box>

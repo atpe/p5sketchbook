@@ -14,6 +14,7 @@ import CardHeader from '@mui/material/CardHeader'
 import { sortingSketch, sortingActions } from './sortingAlgorithms/main'
 import { rayCastingSketch, rayCastingActions } from './rayCasting/main'
 import { quadtreeSketch, quadtreeActions } from './quadtree/main'
+import { mandlebrotSetSketch, mandlebrotSetActions } from './mandlebrotSet/main'
 // Sorting algorithm imports
 import SelectionSort from './sortingAlgorithms/algorithms/selectionSort'
 import InsertionSort from './sortingAlgorithms/algorithms/insertionSort'
@@ -72,6 +73,11 @@ export default function Sketch(props) {
       title: 'Quadtree',
       sketch: sketch => quadtreeSketch(sketch, sketchRef),
       actions: quadtreeActions,
+    },
+    mandlebrotSet: {
+      title: 'Mandlebrot Set',
+      sketch: sketch => mandlebrotSetSketch(sketch, sketchRef),
+      actions: mandlebrotSetActions,
     },
   }
 

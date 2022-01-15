@@ -27,6 +27,17 @@ export default function Home() {
     <Card>
       <CardHeader title='Sketches' />
       <CardContent component={List}>
+        <ListSubheader>Game and Graphics Algorithms</ListSubheader>
+        <ListItemButton component={Link} to='/game-and-graphics/ray-casting'>
+          <ListItemText primary='Ray Casting' />
+        </ListItemButton>
+        <ListItemButton component={Link} to='/game-and-graphics/quadtree'>
+          <ListItemText primary='Quadtree' />
+        </ListItemButton>
+        <ListSubheader>Mathematical Sets</ListSubheader>
+        <ListItemButton component={Link} to='/mathematical-sets/mandlebrot-set'>
+          <ListItemText primary='Mandlebrot Set' />
+        </ListItemButton>
         <ListSubheader>Sorting Algorithms</ListSubheader>
         <ListItemButton component={Link} to='/sorting-algorithms/selection-sort'>
           <ListItemText primary='Selection Sort' />
@@ -42,13 +53,6 @@ export default function Home() {
         </ListItemButton>
         <ListItemButton component={Link} to='/sorting-algorithms/heap-sort'>
           <ListItemText primary='Heap Sort' />
-        </ListItemButton>
-        <ListSubheader>Game and Graphics Algorithms</ListSubheader>
-        <ListItemButton component={Link} to='/game-and-graphics/ray-casting'>
-          <ListItemText primary='Ray Casting' />
-        </ListItemButton>
-        <ListItemButton component={Link} to='/game-and-graphics/quadtree'>
-          <ListItemText primary='Quadtree' />
         </ListItemButton>
       </CardContent >
     </Card>

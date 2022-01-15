@@ -8,10 +8,10 @@ import CardContent from '@mui/material/CardContent'
 import CardActions from '@mui/material/CardActions'
 import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
+// Local component imports
 import Quadtree from './components/quadtree'
 import Box from './components/box'
 
-// Local component imports
 
 const pointLimit = 1000
 const multPoints = 100
