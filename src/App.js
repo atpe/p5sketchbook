@@ -65,8 +65,10 @@ export default function App() {
               <Route path='ray-casting' element={<Sketch sketch='rayCasting' />} />
               <Route path='quadtree' element={<Sketch sketch='quadtree' />} />
             </Route>
-            <Route path='mathematical-sets'>
+            <Route path='fractal-geometries'>
               <Route path='mandlebrot-set' element={<Sketch sketch='mandlebrotSet' />} />
+              <Route path='julia-set' element={<Sketch sketch='juliaSet' />} />
+              {/* <Route path='mandlebrot-set-shader' element={<Sketch sketch='mandlebrotSetShader' />} /> */}
             </Route>
           </Route>
         </Routes>

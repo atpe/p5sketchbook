@@ -44,24 +44,26 @@ export function quadtreeActions(actions) {
 export function quadtreeSketch(sketch, sketchRef) {
   const { clientWidth, clientHeight } = sketchRef.current
 
-  /**
-   * Resets the sketch
-   * 
-   * @param {Function} sketch The p5.js sketch function
-   */
-  function reset(sketch) {
+  /** Starts the sketch */
+  function start() {
+    sketch.loop()
+  }
+
+  /** Pauses the sketch */
+  function pause() {
+    sketch.noLoop()
+  }
+
+  /** Resets the sketch */
+  function reset() {
     sketch.pointImage.clear()
     sketch.quadtree.reset()
     sketch.query.position = sketch.createVector(clientWidth / 2, clientHeight / 4)
     sketch.points = []
   }
 
-  /**
-   * Sets up the sketch
-   * 
-   * @param {Function} sketch The p5.js sketch function
-   */
-  function setup(sketch) {
+  /** Sets up the sketch */
+  function setup() {
     sketch.createCanvas(clientWidth, clientHeight)
     sketch.frameRate(60)
     sketch.rectMode(sketch.CENTER)
@@ -75,12 +77,8 @@ export function quadtreeSketch(sketch, sketchRef) {
     sketch.points = []
   }
 
-  /**
-   * Is called when mouse is pressed
-   * 
-   * @param {Function} sketch The p5.js sketch function
-   */
-  function mousePressed(sketch) {
+  /** Is called when mouse is pressed */
+  function mousePressed() {
     sketch.pointImage.strokeWeight(5)
     sketch.pointImage.stroke(255, 100)
     if (sketch.points.length + multPoints <= pointLimit) {
@@ -106,12 +104,8 @@ export function quadtreeSketch(sketch, sketchRef) {
     }
   }
 
-  /**
-   * Draws the sketch
-   * 
-   * @param {Function} sketch The p5.js sketch function
-   */
-  function draw(sketch) {
+  /** Draws the sketch */
+  function draw() {
     sketch.push()
     sketch.background(120)
     sketch.query.move(sketch)
@@ -159,8 +153,10 @@ export function quadtreeSketch(sketch, sketchRef) {
     sketch.line(0, clientHeight / 2, clientWidth, clientHeight / 2)
   }
 
-  sketch.reset = () => reset(sketch)
-  sketch.setup = () => setup(sketch)
-  sketch.mousePressed = () => mousePressed(sketch)
-  sketch.draw = () => draw(sketch)
+  sketch.start = () => start()
+  sketch.pause = () => pause()
+  sketch.reset = () => reset()
+  sketch.setup = () => setup()
+  sketch.mousePressed = () => mousePressed()
+  sketch.draw = () => draw()
 }

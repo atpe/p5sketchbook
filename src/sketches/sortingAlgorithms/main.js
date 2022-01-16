@@ -7,7 +7,6 @@
 import CardActions from '@mui/material/CardActions'
 import Button from '@mui/material/Button'
 // Local component imports
-import List from './list'
 
 /**
  * Render sketch
@@ -32,42 +31,40 @@ export function sortingActions(actions) {
  * @param {List} list The list to be sorted by the sketch
  */
 export function sortingSketch(sketch, list) {
-  /**
-   * Resets the sketch
-   * 
-   * @param {Function} sketch The p5.js sketch function for sorting algorithms
-   * @param {List} list The list to be sorted by the sketch 
-   */
-  function reset(sketch, list) {
+  /** Starts the sketch */
+  function start() {
+    sketch.loop()
+  }
+
+  /** Pauses the sketch */
+  function pause() {
+    sketch.noLoop()
+  }
+
+  /** Resets the sketch */
+  function reset() {
     list.reset()
     sketch.redraw()
   }
 
-  /**
-   * Sets up the sketch
-   * 
-   * @param {Function} sketch The p5.js sketch function for sorting algorithms
-   * @param {List} list The list to be sorted by the sketch 
-   */
-  function setup(sketch, list) {
+  /** Sets up the sketch */
+  function setup() {
     sketch.createCanvas(list.width, list.height)
     sketch.noLoop()
     sketch.frameRate(10)
   }
 
-  /**
-   * Draws the sketch
-   * 
-   * @param {Function} sketch The p5.js sketch function for sorting algorithms
-   * @param {List} list The list to be sorted by the sketch 
-   */
-  function draw(sketch, list) {
+  /** Draws the sketch */
+  function draw() {
     sketch.background(120)
     if (sketch.isLooping()) list.sort()
     list.draw(sketch)
     list.highlight(sketch)
   }
-  sketch.reset = () => reset(sketch, list)
-  sketch.setup = () => setup(sketch, list)
-  sketch.draw = () => draw(sketch, list)
+
+  sketch.start = () => start()
+  sketch.pause = () => pause()
+  sketch.reset = () => reset()
+  sketch.setup = () => setup()
+  sketch.draw = () => draw()
 }

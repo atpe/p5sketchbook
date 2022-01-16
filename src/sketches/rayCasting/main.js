@@ -39,21 +39,23 @@ export function rayCastingActions(actions) {
 export function rayCastingSketch(sketch, sketchRef) {
   const { clientWidth, clientHeight } = sketchRef.current
 
-  /**
-   * Resets the sketch
-   * 
-   * @param {Function} sketch The p5.js sketch function
-   */
-  function reset(sketch) {
+  /** Starts the sketch */
+  function start() {
+    sketch.loop()
+  }
+
+  /** Pauses the sketch */
+  function pause() {
+    sketch.noLoop()
+  }
+
+  /** Resets the sketch */
+  function reset() {
     sketch.world.reset()
   }
 
-  /**
-   * Sets up the sketch
-   * 
-   * @param {Function} sketch The p5.js sketch function
-   */
-  function setup(sketch) {
+  /** Sets up the sketch */
+  function setup() {
     sketch.createCanvas(clientWidth, clientHeight)
     sketch.frameRate(60)
     sketch.rectMode(sketch.CENTER)
@@ -64,30 +66,24 @@ export function rayCastingSketch(sketch, sketchRef) {
     sketch.world = new World(center, size)
   }
 
-  /**
-   * Is called when mouse is pressed
-   * 
-   * @param {Function} sketch The p5.js sketch function
-   */
-  function mousePressed(sketch) {
+  /** Is called when mouse is pressed */
+  function mousePressed() {
     const position = sketch.createVector(sketch.mouseX, sketch.mouseY)
     if (sketch.world.contains(position) && sketch.world.obstacles.length <= obstacleLimit) {
       sketch.world.addObstacle(position)
     }
   }
 
-  /**
-   * Draws the sketch
-   * 
-   * @param {Function} sketch The p5.js sketch function
-   */
-  function draw(sketch) {
+  /** Draws the sketch */
+  function draw() {
     sketch.background(120)
     sketch.world.update(sketch)
   }
 
-  sketch.reset = () => reset(sketch)
-  sketch.setup = () => setup(sketch)
-  sketch.mousePressed = () => mousePressed(sketch)
-  sketch.draw = () => draw(sketch)
+  sketch.start = () => start()
+  sketch.pause = () => pause()
+  sketch.reset = () => reset()
+  sketch.setup = () => setup()
+  sketch.mousePressed = () => mousePressed()
+  sketch.draw = () => draw()
 }

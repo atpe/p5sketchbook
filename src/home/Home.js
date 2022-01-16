@@ -34,10 +34,16 @@ export default function Home() {
         <ListItemButton component={Link} to='/game-and-graphics/quadtree'>
           <ListItemText primary='Quadtree' />
         </ListItemButton>
-        <ListSubheader>Mathematical Sets</ListSubheader>
-        <ListItemButton component={Link} to='/mathematical-sets/mandlebrot-set'>
+        <ListSubheader>Fractal Geometries</ListSubheader>
+        <ListItemButton component={Link} to='/fractal-geometries/mandlebrot-set'>
           <ListItemText primary='Mandlebrot Set' />
         </ListItemButton>
+        <ListItemButton component={Link} to='/fractal-geometries/julia-set'>
+          <ListItemText primary='Julia Set' />
+        </ListItemButton>
+        {/* <ListItemButton component={Link} to='/fractal-geometries/mandlebrot-set-shader'>
+          <ListItemText primary='Mandlebrot Set (Shader)' />
+        </ListItemButton> */}
         <ListSubheader>Sorting Algorithms</ListSubheader>
         <ListItemButton component={Link} to='/sorting-algorithms/selection-sort'>
           <ListItemText primary='Selection Sort' />

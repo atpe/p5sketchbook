@@ -84,7 +84,7 @@ export default class Ray {
    * @param {p5} sketch The p5.js sketch
    */
   draw(sketch) {
-    const { x1, y1, x2, y2 } = this.points
+    const { x1, y1 } = this.points
     sketch.push()
     sketch.noStroke()
     sketch.fill(255, 50)

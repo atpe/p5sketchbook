@@ -4,7 +4,6 @@
  */
 
 // P5 library imports
-import { Vector } from "p5"
 // Local component imports
 import Box from "./box"
 

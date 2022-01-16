@@ -15,6 +15,8 @@ import { sortingSketch, sortingActions } from './sortingAlgorithms/main'
 import { rayCastingSketch, rayCastingActions } from './rayCasting/main'
 import { quadtreeSketch, quadtreeActions } from './quadtree/main'
 import { mandlebrotSetSketch, mandlebrotSetActions } from './mandlebrotSet/main'
+import { juliaSetSketch, juliaSetActions } from './juliaSet/main'
+import { mandlebrotSetShaderSketch, mandlebrotSetShaderActions } from './mandlebrotSetShader/main'
 // Sorting algorithm imports
 import SelectionSort from './sortingAlgorithms/algorithms/selectionSort'
 import InsertionSort from './sortingAlgorithms/algorithms/insertionSort'
@@ -30,14 +32,8 @@ import HeapSort from './sortingAlgorithms/algorithms/heapSort'
  * @returns {React.Component} Sketch component
  */
 export default function Sketch(props) {
-  /**
-   * @constant {React.RefObject} sketchRef DOM element reference for p5 to insert canvas
-   */
   const sketchRef = createRef()
 
-  /**
-   * @constant {object} sketches Object containing each sketch and associated actions
-   */
   const sketches = {
     selectionSort: {
       title: 'Selection Sort',
@@ -79,20 +75,24 @@ export default function Sketch(props) {
       sketch: sketch => mandlebrotSetSketch(sketch, sketchRef),
       actions: mandlebrotSetActions,
     },
+    juliaSet: {
+      title: 'Julia Set',
+      sketch: sketch => juliaSetSketch(sketch, sketchRef),
+      actions: juliaSetActions,
+    },
+    mandlebrotSetShader: {
+      title: 'Mandlebrot Set (Shader)',
+      sketch: sketch => mandlebrotSetShaderSketch(sketch, sketchRef),
+      actions: mandlebrotSetShaderActions,
+    },
   }
 
-  /**
-   * @var {p5} instance p5 instance
-   */
   let instance
   useEffect(() => instance = new p5(sketch => sketches[props.sketch].sketch(sketch), sketchRef.current))
 
-  /**
-   * @constant {object} actions Set of functions to be called outside of p5 canvas interaction
-   */
   const actions = {
-    start: () => instance.loop(),
-    pause: () => instance.noLoop(),
+    start: () => instance.start(),
+    pause: () => instance.pause(),
     reset: () => instance.reset(),
   }
 

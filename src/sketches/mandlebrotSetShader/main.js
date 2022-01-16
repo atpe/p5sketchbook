@@ -7,9 +7,8 @@
 import CardActions from '@mui/material/CardActions'
 import Button from '@mui/material/Button'
 // Local component imports
-import MandlebrotSet from './mandlebrotSet'
 
-export function mandlebrotSetActions(actions) {
+export function mandlebrotSetShaderActions(actions) {
   return (
     <>
       <CardActions>
@@ -21,63 +20,61 @@ export function mandlebrotSetActions(actions) {
   )
 }
 
-/** Main mandlebrotSet sketch function
+/** Main mandlebrotSetShader sketch function
  *  @param {Function} sketch The p5.js sketch function
  *  @param {React.RefObject} sketch The p5.js sketch function
  */
-export function mandlebrotSetSketch(sketch, sketchRef) {
+export function mandlebrotSetShaderSketch(sketch, sketchRef) {
   const { clientWidth, clientHeight } = sketchRef.current
-
-  /** Starts the sketch */
-  function start() {
-    sketch.loop()
-  }
-
-  /** Pauses the sketch */
-  function pause() {
-    sketch.noLoop()
-  }
 
   /** Resets the sketch */
   function reset() {
-    sketch.background(0, 0, (120 / 255) * 100)
-    sketch.mandlebrotSet.reset()
+
+  }
+
+
+  function preload() {
+    const vert = '/shaders/mandlebrotSetShader/mandlebrot.vert'
+    const frag = '/shaders/mandlebrotSetShader/mandlebrot.frag'
+    sketch.mandlebrotSetShader = sketch.loadShader(vert, frag)
   }
 
   /** Sets up the sketch */
   function setup() {
-    sketch.createCanvas(clientWidth, clientHeight)
+    sketch.createCanvas(clientWidth, clientHeight, sketch.WEBGL)
 
     sketch.pixelDensity(1)
     sketch.background(120)
-    sketch.colorMode(sketch.HSB)
 
     sketch.noLoop()
 
-    const size = sketch.createVector(clientWidth, clientHeight)
     const ratio = clientWidth / clientHeight
     const left = -2
     const right = 1
     const height = (right - left) / ratio
+    const size = sketch.createVector(clientWidth, clientHeight)
     const max = sketch.createVector(right, height / 2)
     const min = sketch.createVector(left, -height / 2)
-    sketch.mandlebrotSet = new MandlebrotSet(size, min, max)
+
+    sketch.shader(sketch.mandlebrotSetShader)
+
   }
 
   /** Draws the sketch */
   function draw() {
-    if (sketch.isLooping()) {
-      sketch.push()
-      sketch.mandlebrotSet.iterate()
-      sketch.pop()
-      sketch.fill(255)
-      sketch.text(sketch.mandlebrotSet.iterations + ' iterations completed', 10, 20)
-    }
+    sketch.mandlebrotSetShader.setUniform('u_resolution', [clientWidth, clientHeight])
+    sketch.mandlebrotSetShader.setUniform('u_zoomCenter', [0.0, 0.0])
+    sketch.mandlebrotSetShader.setUniform('u_zoomSize', 2.0)
+    sketch.mandlebrotSetShader.setUniform('u_maxIterations', 100)
+
+    sketch.push()
+    // sketch.fill(120)
+    sketch.rect(-clientWidth, -clientHeight, clientWidth * 2, clientHeight * 2)
+    sketch.pop()
   }
 
-  sketch.start = () => start()
-  sketch.pause = () => pause()
   sketch.reset = () => reset()
+  sketch.preload = () => preload()
   sketch.setup = () => setup()
   sketch.draw = () => draw()
 }
