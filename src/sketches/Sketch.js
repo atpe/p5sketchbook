@@ -14,6 +14,7 @@ import CardHeader from '@mui/material/CardHeader'
 import { sortingSketch, sortingActions } from './sortingAlgorithms/main'
 import { rayCastingSketch, rayCastingActions } from './rayCasting/main'
 import { quadtreeSketch, quadtreeActions } from './quadtree/main'
+import { aStarSearchSketch, aStarSearchActions } from './aStarSearch/main'
 import { mandlebrotSetSketch, mandlebrotSetActions } from './mandlebrotSet/main'
 import { juliaSetSketch, juliaSetActions } from './juliaSet/main'
 import { sierpinskiCarpetSketch, sierpinskiCarpetActions } from './sierpinskiCarpet/main'
@@ -70,6 +71,11 @@ export default function Sketch(props) {
       title: 'Quadtree',
       sketch: sketch => quadtreeSketch(sketch, sketchRef),
       actions: quadtreeActions,
+    },
+    aStarSearch: {
+      title: 'A* Search',
+      sketch: sketch => aStarSearchSketch(sketch, sketchRef),
+      actions: aStarSearchActions,
     },
     mandlebrotSet: {
       title: 'Mandlebrot Set',

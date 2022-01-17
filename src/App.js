@@ -54,22 +54,23 @@ export default function App() {
         <Routes>
           <Route exact path='/' element={<Home />} />
           <Route path='/'>
-            <Route path='sorting-algorithms'>
-              <Route path='selection-sort' element={<Sketch sketch='selectionSort' />} />
-              <Route path='insertion-sort' element={<Sketch sketch='insertionSort' />} />
-              <Route path='bubble-sort' element={<Sketch sketch='bubbleSort' />} />
-              <Route path='merge-sort' element={<Sketch sketch='mergeSort' />} />
-              <Route path='heap-sort' element={<Sketch sketch='heapSort' />} />
-            </Route>
             <Route path='game-and-graphics'>
               <Route path='ray-casting' element={<Sketch sketch='rayCasting' />} />
               <Route path='quadtree' element={<Sketch sketch='quadtree' />} />
+              <Route path='a-star-search' element={<Sketch sketch='aStarSearch' />} />
             </Route>
             <Route path='fractal-geometries'>
               <Route path='mandlebrot-set' element={<Sketch sketch='mandlebrotSet' />} />
               <Route path='julia-set' element={<Sketch sketch='juliaSet' />} />
               <Route path='sierpinski-carpet' element={<Sketch sketch='sierpinskiCarpet' />} />
               {/* <Route path='mandlebrot-set-shader' element={<Sketch sketch='mandlebrotSetShader' />} /> */}
+            </Route>
+            <Route path='sorting-algorithms'>
+              <Route path='selection-sort' element={<Sketch sketch='selectionSort' />} />
+              <Route path='insertion-sort' element={<Sketch sketch='insertionSort' />} />
+              <Route path='bubble-sort' element={<Sketch sketch='bubbleSort' />} />
+              <Route path='merge-sort' element={<Sketch sketch='mergeSort' />} />
+              <Route path='heap-sort' element={<Sketch sketch='heapSort' />} />
             </Route>
           </Route>
         </Routes>

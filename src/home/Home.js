@@ -34,6 +34,9 @@ export default function Home() {
         <ListItemButton component={Link} to='/game-and-graphics/quadtree'>
           <ListItemText primary='Quadtree' />
         </ListItemButton>
+        <ListItemButton component={Link} to='/game-and-graphics/a-star-search'>
+          <ListItemText primary='A* Search' />
+        </ListItemButton>
         <ListSubheader>Fractal Geometries</ListSubheader>
         <ListItemButton component={Link} to='/fractal-geometries/mandlebrot-set'>
           <ListItemText primary='Mandlebrot Set' />
