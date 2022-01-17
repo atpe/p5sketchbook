@@ -32,7 +32,6 @@ export default class SierpinkskiCarpet {
         }
       }
     }
-    console.log(this.complete);
     return this.complete
   }
 

@@ -68,7 +68,7 @@ export function mandlebrotSetSketch(sketch, sketchRef) {
   function draw() {
     if (sketch.isLooping()) {
       sketch.push()
-      sketch.mandlebrotSet.iterate()
+      sketch.mandlebrotSet.iterate(sketch)
       sketch.pop()
       sketch.fill(255)
       sketch.text(sketch.mandlebrotSet.iterations + ' iterations completed', 10, 20)
