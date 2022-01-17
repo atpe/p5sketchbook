@@ -68,6 +68,7 @@ export default function App() {
             <Route path='fractal-geometries'>
               <Route path='mandlebrot-set' element={<Sketch sketch='mandlebrotSet' />} />
               <Route path='julia-set' element={<Sketch sketch='juliaSet' />} />
+              <Route path='sierpinski-carpet' element={<Sketch sketch='sierpinskiCarpet' />} />
               {/* <Route path='mandlebrot-set-shader' element={<Sketch sketch='mandlebrotSetShader' />} /> */}
             </Route>
           </Route>

@@ -24,9 +24,9 @@ import ListItemText from '@mui/material/ListItemText'
  */
 export default function Home() {
   return (
-    <Card>
+    <Card sx={{ overflow: 'auto' }}>
       <CardHeader title='Sketches' />
-      <CardContent component={List}>
+      <CardContent component={List} dense sx={{ padding: 0 }}>
         <ListSubheader>Game and Graphics Algorithms</ListSubheader>
         <ListItemButton component={Link} to='/game-and-graphics/ray-casting'>
           <ListItemText primary='Ray Casting' />
@@ -40,6 +40,9 @@ export default function Home() {
         </ListItemButton>
         <ListItemButton component={Link} to='/fractal-geometries/julia-set'>
           <ListItemText primary='Julia Set' />
+        </ListItemButton>
+        <ListItemButton component={Link} to='/fractal-geometries/sierpinski-carpet'>
+          <ListItemText primary='Sierpiński Carpet' />
         </ListItemButton>
         {/* <ListItemButton component={Link} to='/fractal-geometries/mandlebrot-set-shader'>
           <ListItemText primary='Mandlebrot Set (Shader)' />

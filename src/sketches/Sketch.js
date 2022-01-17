@@ -16,7 +16,8 @@ import { rayCastingSketch, rayCastingActions } from './rayCasting/main'
 import { quadtreeSketch, quadtreeActions } from './quadtree/main'
 import { mandlebrotSetSketch, mandlebrotSetActions } from './mandlebrotSet/main'
 import { juliaSetSketch, juliaSetActions } from './juliaSet/main'
-import { mandlebrotSetShaderSketch, mandlebrotSetShaderActions } from './mandlebrotSetShader/main'
+import { sierpinskiCarpetSketch, sierpinskiCarpetActions } from './sierpinskiCarpet/main'
+// import { mandlebrotSetShaderSketch, mandlebrotSetShaderActions } from './mandlebrotSetShader/main'
 // Sorting algorithm imports
 import SelectionSort from './sortingAlgorithms/algorithms/selectionSort'
 import InsertionSort from './sortingAlgorithms/algorithms/insertionSort'
@@ -80,11 +81,16 @@ export default function Sketch(props) {
       sketch: sketch => juliaSetSketch(sketch, sketchRef),
       actions: juliaSetActions,
     },
-    mandlebrotSetShader: {
-      title: 'Mandlebrot Set (Shader)',
-      sketch: sketch => mandlebrotSetShaderSketch(sketch, sketchRef),
-      actions: mandlebrotSetShaderActions,
+    sierpinskiCarpet: {
+      title: 'Sierpiński Carpet',
+      sketch: sketch => sierpinskiCarpetSketch(sketch, sketchRef),
+      actions: sierpinskiCarpetActions,
     },
+    // mandlebrotSetShader: {
+    //   title: 'Mandlebrot Set (Shader)',
+    //   sketch: sketch => mandlebrotSetShaderSketch(sketch, sketchRef),
+    //   actions: mandlebrotSetShaderActions,
+    // },
   }
 
   let instance
