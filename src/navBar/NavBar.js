@@ -1,8 +1,3 @@
-/**
- * @module NavBar
- * @author Adam Evans
- */
-
 // React imports
 import React from 'react'
 // React-Router-Dom imports
@@ -14,28 +9,22 @@ import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
 import Avatar from '@mui/material/Avatar'
 
-/**
- * Render navbar
- * 
- * @default
- * @returns {React.Component} NavBar component
- */
 export default function NavBar() {
+  const p5AvatarStyle = {
+    mr: 2,
+    bgcolor: '#fff',
+    color: '#ed225d',
+    textDecoration: 'none',
+  }
   return (
     <AppBar position='static'>
       <Toolbar>
-        <Avatar
-          sx={{
-            mr: 2,
-            bgcolor: '#fff',
-            color: '#ed225d',
-            textDecoration: 'none'
-          }}
-          component='a'
-          href='https://p5js.org/'
-        >p5</Avatar>
+        <Avatar sx={p5AvatarStyle} component='a' href='https://p5js.org/'>p5</Avatar>
+
         <Typography variant='h5' component='div' sx={{ flex: 1 }}>SketchBook</Typography>
+
         <Button color='secondary' LinkComponent={Link} to='/'>Home</Button>
+
         <Avatar sx={{ ml: 2 }} alt='Adam Evans'>AE</Avatar>
       </Toolbar>
     </AppBar >

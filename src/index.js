@@ -1,12 +1,3 @@
-/**
- * Index.js
- * 
- * @file Main entry point for SketchBook app.
- * @author Adam Evans
- * 
- * @requires module:App
- */
-
 // React imports
 import React from 'react'
 import ReactDOM from 'react-dom'

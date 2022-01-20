@@ -1,8 +1,3 @@
-/**
- * @module App
- * @author Adam Evans
- */
-
 // React imports
 import React from 'react'
 // React-Router-Dom imports
@@ -11,40 +6,39 @@ import { useTheme } from '@emotion/react'
 // MUI component imports
 import Box from '@mui/material/Box'
 // Local component imports
+import { index } from './sketches/index'
 import NavBar from './navBar/NavBar'
 import Home from './home/Home'
-import Sketch from './sketches/Sketch'
 
-/**
- * @param {Theme} theme Mui theme passed to theme provider
- * @returns {Number} The height of the window minus the app bar
- */
+// Gets height of sketch from theme
 function getViewHeight(theme) {
-  const toolbar = theme.mixins.toolbar
+  // Get window dimensions
   const { innerWidth, innerHeight } = window
-
-  // Get height of navbar from theme
+  // Get toolbar theming object
+  const toolbar = theme.mixins.toolbar
+  // Get default navbar height (56px)
   let navBarHeight = toolbar.minHeight
-  if (innerWidth > theme.breakpoints.up('sm')) {
-    const key = `${theme.breakpoints.up('sm')}`
-    navBarHeight = toolbar[key].minHeight
+  // Get 'sm' breakpoint (600px)
+  const sm = theme.breakpoints.up('sm')
+  // If window is wider than 'sm' breakpoint...
+  if (innerWidth > sm) {
+    // Get large navbar height (64px)
+    navBarHeight = toolbar[sm].minHeight
+    // Else if window is landscape...
   } else if (innerWidth < innerHeight) {
-    const key = `${theme.breakpoints.up('xs')} and (orientation: landscape)`
+    // Get 'xs' breakpoint (0px)
+    const xs = theme.breakpoints.up('xs')
+    // Create key for toolbar theme object
+    const key = xs + ' and (orientation: landscape)'
+    // Get small navbar height (48px)
     navBarHeight = toolbar[key].minHeight
   }
-
+  // Set padding value for app container and <br /> tag
   const padding = 48
-
-  // Return the height of remaining space
+  // Return the height of remaining space for sketch component
   return innerHeight - navBarHeight - padding
 }
 
-/**
- * Render app
- * 
- * @default
- * @returns {React.Component} App component
- */
 export default function App() {
   const theme = useTheme()
   return (
@@ -54,24 +48,17 @@ export default function App() {
         <Routes>
           <Route exact path='/' element={<Home />} />
           <Route path='/'>
-            <Route path='game-and-graphics'>
-              <Route path='ray-casting' element={<Sketch sketch='rayCasting' />} />
-              <Route path='quadtree' element={<Sketch sketch='quadtree' />} />
-              <Route path='a-star-search' element={<Sketch sketch='aStarSearch' />} />
-            </Route>
-            <Route path='fractal-geometries'>
-              <Route path='mandlebrot-set' element={<Sketch sketch='mandlebrotSet' />} />
-              <Route path='julia-set' element={<Sketch sketch='juliaSet' />} />
-              <Route path='sierpinski-carpet' element={<Sketch sketch='sierpinskiCarpet' />} />
-              {/* <Route path='mandlebrot-set-shader' element={<Sketch sketch='mandlebrotSetShader' />} /> */}
-            </Route>
-            <Route path='sorting-algorithms'>
-              <Route path='selection-sort' element={<Sketch sketch='selectionSort' />} />
-              <Route path='insertion-sort' element={<Sketch sketch='insertionSort' />} />
-              <Route path='bubble-sort' element={<Sketch sketch='bubbleSort' />} />
-              <Route path='merge-sort' element={<Sketch sketch='mergeSort' />} />
-              <Route path='heap-sort' element={<Sketch sketch='heapSort' />} />
-            </Route>
+            { // Iterate over categories in the index
+              index.map((category, i) =>
+                <Route key={`cartegory-route-${i}`} path={category.route} >
+                  { // Iterate over sketches in that category
+                    category.sketches.map((sketch, j) =>
+                      <Route key={`sketch-route-${j}`} path={sketch.route} element={<sketch.element />} />
+                    )
+                  }
+                </Route>
+              )
+            }
           </Route>
         </Routes>
       </Box>
