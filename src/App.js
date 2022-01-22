@@ -50,7 +50,7 @@ export default function App() {
           <Route path='/'>
             { // Iterate over categories in the index
               index.map((category, i) =>
-                <Route key={`cartegory-route-${i}`} path={category.route} >
+                <Route key={`category-route-${i}`} path={category.route} >
                   { // Iterate over sketches in that category
                     category.sketches.map((sketch, j) =>
                       <Route key={`sketch-route-${j}`} path={sketch.route} element={<sketch.element />} />

@@ -1,5 +1,7 @@
 // Path finding algorithms imports
 import AStarSearch from './pathFindingAlgorithms/aStarSearch/AStarSearch'
+// Artificial life simulation imports
+import ElementaryCellularAutomata from './artificialLifeSimulations/elementaryCellularAutomata/ElementaryCellularAutomata'
 // Graphics rendering algorithms imports
 import RayCasting from './graphicsRenderingAlgorithms/rayCasting/RayCasting'
 // Data structure algorithms imports
@@ -20,75 +22,43 @@ export const index = [
     title: 'Path Finding Algorithms',
     route: 'path-finding-algorithms',
     sketches: [
-      {
-        title: 'A* Search',
-        route: 'a-star-search',
-        element: AStarSearch,
-      },
+      { title: 'A* Search', route: 'a-star-search', element: AStarSearch },
     ],
   }, {
-    title: 'Graphics Rendering Algorithms',
-    route: 'game-rendering-algorithms',
+    title: 'Artificial Life Simulations',
+    route: 'artificial-life-simulations',
     sketches: [
-      {
-        title: 'Ray Casting',
-        route: 'ray-casting',
-        element: RayCasting,
-      },
+      { title: 'Elementary Cellular Automata', route: 'elementary-cellular-automata', element: ElementaryCellularAutomata },
+    ],
+  }, {
+    title: 'Computer Graphics Algorithms',
+    route: 'computer-graphics-algorithms',
+    sketches: [
+      { title: 'Ray Casting', route: 'ray-casting', element: RayCasting },
     ],
   }, {
     title: 'Data Structure Algorithms',
     route: 'data-structure-algorithms',
     sketches: [
-      {
-        title: 'Quadtree',
-        route: 'quadtree',
-        element: Quadtree,
-      },
+      { title: 'Quadtree', route: 'quadtree', element: Quadtree },
     ],
   }, {
     title: 'Fractal Geometries',
     route: 'fractal-geometries',
     sketches: [
-      {
-        title: 'Mandlebrot Set',
-        route: 'mandlebrot-set',
-        element: MandlebrotSet,
-      }, {
-        title: 'Julia Set',
-        route: 'julia-set',
-        element: JuliaSet,
-      }, {
-        title: 'Sierpiński Carpet',
-        route: 'sierpinski-carpet',
-        element: SierpinskiCarpet,
-      },
+      { title: 'Mandlebrot Set', route: 'mandlebrot-set', element: MandlebrotSet },
+      { title: 'Julia Set', route: 'julia-set', element: JuliaSet },
+      { title: 'Sierpiński Carpet', route: 'sierpinski-carpet', element: SierpinskiCarpet },
     ],
   }, {
     title: 'Sorting Algorithms',
     route: 'sorting-algorithms',
     sketches: [
-      {
-        title: 'Selection Sort',
-        route: 'selection-sort',
-        element: SelectionSort,
-      }, {
-        title: 'Insertion Sort',
-        route: 'insertion-sort',
-        element: InsertionSort,
-      }, {
-        title: 'Bubble Sort',
-        route: 'bubble-sort',
-        element: BubbleSort,
-      }, {
-        title: 'Merge Sort',
-        route: 'merge-sort',
-        element: MergeSort,
-      }, {
-        title: 'Heap Sort',
-        route: 'heap-sort',
-        element: HeapSort,
-      },
+      { title: 'Selection Sort', route: 'selection-sort', element: SelectionSort },
+      { title: 'Insertion Sort', route: 'insertion-sort', element: InsertionSort },
+      { title: 'Bubble Sort', route: 'bubble-sort', element: BubbleSort },
+      { title: 'Merge Sort', route: 'merge-sort', element: MergeSort },
+      { title: 'Heap Sort', route: 'heap-sort', element: HeapSort },
     ],
   },
 ]
