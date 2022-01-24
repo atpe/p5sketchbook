@@ -1,9 +1,22 @@
 export default class Algorithm {
-  constructor(width, height, rule) {
-    this.width = width
-    this.height = height
-    this.rule = this.calcBinaryArray(rule)
+  constructor(image, rule) {
+    this.image = image
+    this.image.pixelDensity(1)
+    this.image.noFill()
+    this.image.stroke(255)
+    this.image.strokeWeight(2)
 
+    this.width = image.width
+    this.height = image.height
+
+    this.ruleDecimal = rule
+    this.ruleBinary = this.calcBinaryArray(rule)
+
+    this.cells = []
+    this.generation = 0
+  }
+
+  reset() {
     this.cells = []
     this.generation = 0
   }
@@ -20,7 +33,6 @@ export default class Algorithm {
       }
       pow--
     }
-    console.log(bits);
     return bits
   }
 
@@ -35,11 +47,11 @@ export default class Algorithm {
   }
 
   iterate() {
-    const atMaxHeight = this.cells.length >= this.height * this.width
-    if (atMaxHeight) this.cells.splice(0, this.width)
+    if (this.atMaxHeight) this.cells.splice(0, this.width)
+    else this.atMaxHeight = this.cells.length >= this.height * this.width
 
     // Calculate center of canvas
-    const max = atMaxHeight ? this.height - 1 : this.generation
+    const max = this.atMaxHeight ? this.height - 1 : this.generation
     const start = this.width * max
     // Loop over width from start point
     for (let i = start; i < start + this.width; i++) {
@@ -58,7 +70,7 @@ export default class Algorithm {
         const r = this.cells[_i + 1] || 0
 
         const ruleIndex = 7 - this.calcDecimalValue([l, c, r])
-        this.cells[i] = this.rule[ruleIndex]
+        this.cells[i] = this.ruleBinary[ruleIndex]
       }
     }
 
@@ -66,30 +78,27 @@ export default class Algorithm {
     this.generation++
   }
 
-  draw(sketch) {
-    sketch.push()
-    sketch.loadPixels()
-    const numPixels = sketch.pixels.length / 4
-    const start = this.cells.length === numPixels
-      ? numPixels
-      : numPixels - this.cells.length
+  draw(sketch, x, y) {
+    this.image.background(120)
+    this.image.loadPixels()
+    const numPixels = this.image.pixels.length / 4
+    const start = this.cells.length !== numPixels
+      ? numPixels - this.cells.length : 0
     let j = 0
     for (let i = start; i < numPixels; i++) {
-      const pixelIndex = i * 4
-      const color = this.cells[j]
-        ? [237, 34, 100, 200]
-        : [120, 120, 120, 255]
-      sketch.pixels[pixelIndex - 4] = color[0]
-      sketch.pixels[pixelIndex - 3] = color[1]
-      sketch.pixels[pixelIndex - 2] = color[2]
-      sketch.pixels[pixelIndex - 1] = color[3]
+      if (this.cells[j]) {
+        const pixelIndex = i * 4
+        this.image.pixels[pixelIndex - 4] = 237
+        this.image.pixels[pixelIndex - 3] = 34
+        this.image.pixels[pixelIndex - 2] = 100
+        this.image.pixels[pixelIndex - 1] = 200
+      }
 
       if (j < this.cells.length - 1) j++
       else break
     }
-    sketch.updatePixels()
-    sketch.pop()
-
-    // if (this.generation === 2) sketch.noLoop()
+    this.image.updatePixels()
+    this.image.rect(0, 0, this.width, this.height)
+    sketch.image(this.image, x, y)
   }
 }

@@ -23,6 +23,7 @@ export default function RayCasting() {
   useEffect(() => {
     ref.current.sketch = new p5(s => sketch(s, ref), ref.current)
     ref.current = { ...ref.current, ...constants }
+    return () => ref.current.sketch = null
   })
 
   return (

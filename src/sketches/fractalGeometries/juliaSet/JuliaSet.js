@@ -16,7 +16,10 @@ export default function JuliaSet() {
   // Create a reference for the target DOM element
   const ref = createRef()
   // Attach p5 canvas instance to reference on component mount
-  useEffect(() => { ref.current.sketch = new p5(s => sketch(s, ref), ref.current) })
+  useEffect(() => {
+    ref.current.sketch = new p5(s => sketch(s, ref), ref.current)
+    return () => ref.current.sketch = null
+  })
 
   return (
     <>
