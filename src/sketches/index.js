@@ -2,6 +2,7 @@
 import AStarSearch from './pathFindingAlgorithms/aStarSearch/AStarSearch'
 // Artificial life simulation imports
 import ElementaryCellularAutomata from './artificialLifeSimulations/elementaryCellularAutomata/ElementaryCellularAutomata'
+import GameOfLife from './artificialLifeSimulations/gameOfLife/GameOfLife'
 // Graphics rendering algorithms imports
 import RayCasting from './graphicsRenderingAlgorithms/rayCasting/RayCasting'
 // Data structure algorithms imports
@@ -29,6 +30,7 @@ export const index = [
     route: 'artificial-life-simulations',
     sketches: [
       { title: 'Elementary Cellular Automata', route: 'elementary-cellular-automata', element: ElementaryCellularAutomata },
+      { title: "Conway's Game of Life", route: 'game-of-life', element: GameOfLife },
     ],
   }, {
     title: 'Computer Graphics Algorithms',
