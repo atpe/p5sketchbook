@@ -1,7 +1,3 @@
-// React imports
-import { createRef, useEffect } from 'react'
-// P5 library imports
-import p5 from 'p5'
 // MUI component imports
 import Card from '@mui/material/Card'
 import CardHeader from '@mui/material/CardHeader'
@@ -10,22 +6,17 @@ import CardActions from '@mui/material/CardActions'
 import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
 // Local component imports
+import useSketch from '../../hook'
 import sketch from './sketch'
 
 export default function Quadtree() {
-  // Create a reference for the target DOM element
-  const ref = createRef()
   // Set constant values for sketch
   const constants = {
     pointLimit: 1000,
     multPoints: 100,
   }
-  // Attach p5 canvas instance to reference on component mount
-  useEffect(() => {
-    ref.current.sketch = new p5(s => sketch(s, ref), ref.current)
-    ref.current = { ...ref.current, ...constants }
-    return () => ref.current.sketch = null
-  })
+
+  const ref = useSketch(sketch, constants)
 
   return (
     <>
