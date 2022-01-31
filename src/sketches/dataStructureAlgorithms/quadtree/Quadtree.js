@@ -18,6 +18,12 @@ export default function Quadtree() {
 
   const ref = useSketch(sketch, constants)
 
+  function handleClick(event) {
+    const key = event.target.id
+    ref.current?.sketch[key]()
+    event.preventDefault()
+  }
+
   return (
     <>
       <Card>
@@ -34,7 +40,7 @@ export default function Quadtree() {
           </Typography>
         </CardContent>
         <CardActions>
-          <Button onClick={(e) => { e.preventDefault(); ref.current?.sketch.reset() }}>Reset</Button>
+          <Button id='reset' onClick={handleClick}>Reset</Button>
         </CardActions >
       </Card>
       <br />

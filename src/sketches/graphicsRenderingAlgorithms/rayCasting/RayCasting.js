@@ -15,7 +15,13 @@ export default function RayCasting() {
     obstacleLimit: 100,
   }
 
-  const ref = useSketch(sketch)
+  const ref = useSketch(sketch, constants)
+
+  function handleClick(event) {
+    const key = event.target.id
+    ref.current?.sketch[key]()
+    event.preventDefault()
+  }
 
   return (
     <>
@@ -30,7 +36,7 @@ export default function RayCasting() {
           </Typography>
         </CardContent>
         <CardActions>
-          <Button onClick={(e) => { e.preventDefault(); ref.current?.sketch.reset() }}>Reset</Button>
+          <Button id='reset' onClick={handleClick}>Reset</Button>
         </CardActions >
       </Card>
       <br />

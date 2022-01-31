@@ -11,6 +11,12 @@ import sketch from './sketch'
 export default function SierpinskiCarpet() {
   const ref = useSketch(sketch)
 
+  function handleClick(event) {
+    const key = event.target.id
+    ref.current?.sketch[key]()
+    event.preventDefault()
+  }
+
   return (
     <>
       <Card>
@@ -20,7 +26,7 @@ export default function SierpinskiCarpet() {
           </Typography>
         </CardContent>
         <CardActions>
-          <Button onClick={(e) => { e.preventDefault(); ref.current?.sketch.reset() }}>Reset</Button>
+          <Button id='reset' onClick={handleClick}>Reset</Button>
         </CardActions >
       </Card>
       <br />

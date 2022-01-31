@@ -12,6 +12,12 @@ import sketch from './sketch'
 export default function MandlebrotSet() {
   const ref = useSketch(sketch)
 
+  function handleClick(event) {
+    const key = event.target.id
+    ref.current?.sketch[key]()
+    event.preventDefault()
+  }
+
   return (
     <>
       <Card>
@@ -22,9 +28,9 @@ export default function MandlebrotSet() {
           </Typography>
         </CardContent>
         <CardActions>
-          <Button onClick={(e) => { e.preventDefault(); ref.current?.sketch.start() }}>Start</Button>
-          <Button onClick={(e) => { e.preventDefault(); ref.current?.sketch.pause() }}>Pause</Button>
-          <Button onClick={(e) => { e.preventDefault(); ref.current?.sketch.reset() }}>Reset</Button>
+          <Button id='start' onClick={handleClick}>Start</Button>
+          <Button id='pause' onClick={handleClick}>Pause</Button>
+          <Button id='reset' onClick={handleClick}>Reset</Button>
         </CardActions >
       </Card>
       <br />
