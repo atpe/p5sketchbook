@@ -3,13 +3,13 @@ import Card from '@mui/material/Card'
 import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
 import CardActions from '@mui/material/CardActions'
-import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
+import Button from '@mui/material/Button'
 // Local component imports
 import useSketch from '../../hook'
 import sketch from './sketch'
 
-export default function AStarSearch() {
+export default function CantorSet() {
   const ref = useSketch(sketch)
 
   function handleClick(event) {
@@ -21,15 +21,11 @@ export default function AStarSearch() {
   return (
     <>
       <Card>
-        <CardHeader title='A* Search' />
+        <CardHeader title='Cantor Set' />
         <CardContent>
-          <Typography>Click on the canvas to select the start point for the path.</Typography>
-          <Typography>Click on the canvas, whilst holding SHIFT, to select the end point.</Typography>
-          <Typography>When both have been selected, click START to run the algorithm.</Typography>
+          <Typography>Click the canvas to iterate.</Typography>
         </CardContent>
         <CardActions>
-          <Button id='start' onClick={handleClick}>Start</Button>
-          <Button id='pause' onClick={handleClick}>Pause</Button>
           <Button id='reset' onClick={handleClick}>Reset</Button>
         </CardActions >
       </Card>

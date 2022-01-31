@@ -11,6 +11,7 @@ import Quadtree from './dataStructureAlgorithms/quadtree/Quadtree'
 import MandlebrotSet from './fractalGeometries/mandlebrotSet/MandlebrotSet'
 import JuliaSet from './fractalGeometries/juliaSet/JuliaSet'
 import SierpinskiCarpet from './fractalGeometries/sierpinskiCarpet/SierpinskiCarpet'
+import CantorSet from './fractalGeometries/cantorSet/CantorSet'
 // Sorting algorithms imports
 import SelectionSort from './sortingAlgorithms/selectionSort/SelectionSort'
 import InsertionSort from './sortingAlgorithms/insertionSort/InsertionSort'
@@ -51,6 +52,7 @@ export const index = [
       { title: 'Mandlebrot Set', route: 'mandlebrot-set', element: MandlebrotSet },
       { title: 'Julia Set', route: 'julia-set', element: JuliaSet },
       { title: 'Sierpiński Carpet', route: 'sierpinski-carpet', element: SierpinskiCarpet },
+      { title: 'Cantor Set', route: 'cantor-set', element: CantorSet },
     ],
   }, {
     title: 'Sorting Algorithms',
