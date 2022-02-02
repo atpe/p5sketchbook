@@ -25,46 +25,46 @@ export const index = [
     title: 'Path Finding Algorithms',
     route: 'path-finding-algorithms',
     sketches: [
-      { title: 'A* Search', route: 'a-star-search', element: AStarSearch, requirements: { keyboard: true, screen: true } },
+      { title: 'A* Search', route: 'a-star-search', element: AStarSearch, requires: { keyboard: true, screen: true } },
     ],
   }, {
     title: 'Artificial Life Simulations',
     route: 'artificial-life-simulations',
     sketches: [
-      { title: 'Elementary Cellular Automata', route: 'elementary-cellular-automata', element: ElementaryCellularAutomata, requirements: { keyboard: true, screen: false } },
-      { title: "Conway's Game of Life", route: 'game-of-life', element: GameOfLife, requirements: { keyboard: false, screen: false } },
-      { title: 'Boids', route: 'boids', element: Boids, requirements: { keyboard: true, screen: true } },
+      { title: 'Elementary Cellular Automata', route: 'elementary-cellular-automata', element: ElementaryCellularAutomata, requires: { keyboard: true, screen: false } },
+      { title: "Conway's Game of Life", route: 'game-of-life', element: GameOfLife, requires: { keyboard: false, screen: false } },
+      { title: 'Boids', route: 'boids', element: Boids, requires: { keyboard: true, screen: true } },
     ],
   }, {
     title: 'Computer Graphics Algorithms',
     route: 'computer-graphics-algorithms',
     sketches: [
-      { title: 'Ray Casting', route: 'ray-casting', element: RayCasting, requirements: { keyboard: true, screen: false } },
+      { title: 'Ray Casting', route: 'ray-casting', element: RayCasting, requires: { keyboard: true, screen: false } },
     ],
   }, {
     title: 'Data Structure Algorithms',
     route: 'data-structure-algorithms',
     sketches: [
-      { title: 'Quadtree', route: 'quadtree', element: Quadtree, requirements: { keyboard: true, screen: false } },
+      { title: 'Quadtree', route: 'quadtree', element: Quadtree, requires: { keyboard: true, screen: false } },
     ],
   }, {
     title: 'Fractal Geometries',
     route: 'fractal-geometries',
     sketches: [
-      { title: 'Mandlebrot Set', route: 'mandlebrot-set', element: MandlebrotSet, requirements: { keyboard: false, screen: false } },
-      { title: 'Julia Set', route: 'julia-set', element: JuliaSet, requirements: { keyboard: true, screen: false } },
-      { title: 'Sierpiński Carpet', route: 'sierpinski-carpet', element: SierpinskiCarpet, requirements: { keyboard: false, screen: false } },
-      { title: 'Cantor Set', route: 'cantor-set', element: CantorSet, requirements: { keyboard: false, screen: false } },
+      { title: 'Mandlebrot Set', route: 'mandlebrot-set', element: MandlebrotSet, requires: { keyboard: false, screen: false } },
+      { title: 'Julia Set', route: 'julia-set', element: JuliaSet, requires: { keyboard: true, screen: false } },
+      { title: 'Sierpiński Carpet', route: 'sierpinski-carpet', element: SierpinskiCarpet, requires: { keyboard: false, screen: false } },
+      { title: 'Cantor Set', route: 'cantor-set', element: CantorSet, requires: { keyboard: false, screen: false } },
     ],
   }, {
     title: 'Sorting Algorithms',
     route: 'sorting-algorithms',
     sketches: [
-      { title: 'Selection Sort', route: 'selection-sort', element: SelectionSort, requirements: { keyboard: false, screen: false } },
-      { title: 'Insertion Sort', route: 'insertion-sort', element: InsertionSort, requirements: { keyboard: false, screen: false } },
-      { title: 'Bubble Sort', route: 'bubble-sort', element: BubbleSort, requirements: { keyboard: false, screen: false } },
-      { title: 'Merge Sort', route: 'merge-sort', element: MergeSort, requirements: { keyboard: false, screen: false } },
-      { title: 'Heap Sort', route: 'heap-sort', element: HeapSort, requirements: { keyboard: false, screen: false } },
+      { title: 'Selection Sort', route: 'selection-sort', element: SelectionSort, requires: { keyboard: false, screen: false } },
+      { title: 'Insertion Sort', route: 'insertion-sort', element: InsertionSort, requires: { keyboard: false, screen: false } },
+      { title: 'Bubble Sort', route: 'bubble-sort', element: BubbleSort, requires: { keyboard: false, screen: false } },
+      { title: 'Merge Sort', route: 'merge-sort', element: MergeSort, requires: { keyboard: false, screen: false } },
+      { title: 'Heap Sort', route: 'heap-sort', element: HeapSort, requires: { keyboard: false, screen: false } },
     ],
   },
 ]

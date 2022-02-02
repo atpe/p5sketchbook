@@ -1,7 +1,7 @@
 // React imports
 import React from 'react'
 // React-Router-Dom imports
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, useLocation } from 'react-router-dom'
 import { useTheme } from '@emotion/react'
 // MUI component imports
 import Box from '@mui/material/Box'
@@ -11,7 +11,7 @@ import NavBar from './navBar/NavBar'
 import Home from './home/Home'
 
 // Gets height of sketch from theme
-function getViewHeight(theme) {
+function getViewHeight(theme, location) {
   // Get window dimensions
   const { innerWidth, innerHeight } = window
   // Get toolbar theming object
@@ -33,18 +33,26 @@ function getViewHeight(theme) {
     // Get small navbar height (48px)
     navBarHeight = toolbar[key].minHeight
   }
-  // Set padding value for app container and <br /> tag
-  const padding = 48
   // Return the height of remaining space for sketch component
-  return innerHeight - navBarHeight - padding
+  return innerHeight - navBarHeight - (location.pathname === '/' ? 24 : 48)
 }
 
 export default function App() {
   const theme = useTheme()
+  const location = useLocation()
   return (
     <>
       <NavBar />
-      <Box sx={{ display: 'flex', flexDirection: 'column', p: '16px', height: getViewHeight(theme) }} >
+      <Box sx={{
+        overflow: 'auto',
+        display: 'flex',
+        flexDirection: 'column',
+        height: getViewHeight(theme, location),
+        paddingTop: '16px',
+        paddingLeft: '16px',
+        paddingRight: '16px',
+        paddingBottom: '0px'
+      }} >
         <Routes>
           <Route exact path='/' element={<Home />} />
           <Route path='/'>
